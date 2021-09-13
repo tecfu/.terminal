@@ -20,6 +20,25 @@ SYMLINKS+=("$DIR/.bashrc $HOME/.bashrc")
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.profile $HOME/.profile")
 
+
+# Check OS
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+if [ ${machine} = MinGw ]; then
+  # assume we are running git bash
+  echo "You're running Windows, so you'll want to install Powerline Fonts if you haven't already"
+  echo "See: https://docs.microsoft.com/en-us/windows/terminal/tutorials/powerline-setup"
+  echo "Then use this font in your terminal: [DejaVu Sans Mono for Powerline]"
+  # powershell ./setup-powerline-fonts-windows.ps1
+fi
+
 #printf '%s\n' "${SYMLINKS[@]}"
 #
 for i in "${SYMLINKS[@]}"; do

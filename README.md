@@ -12,6 +12,26 @@ $ git clone https://github.com/tecfu/.terminal ~/.terminal
 $ . ~/.terminal/INSTALL.sh
 ```
 
+### OPTIONAL: Install Powerline Fonts
+
+- Windows
+
+  https://docs.microsoft.com/en-us/windows/terminal/tutorials/powerline-setup
+
+  ```
+  Install-Module posh-git -Scope CurrentUser
+  Install-Module oh-my-posh -Scope CurrentUser -RequiredVersion 2.0.412
+  Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck
+  ```
+
+  Then use this font in your terminal DejaVu Sans Mono for Powerline
+  
+- Ubuntu
+
+  ```
+  sudo apt-get install fonts-powerline
+  ```
+
 ### OPTIONAL: Change keymap for virtual terminals
 
 custom_keymap.kmap maps ESC to CAPS_LOCK
