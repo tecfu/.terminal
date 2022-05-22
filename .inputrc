@@ -1,8 +1,11 @@
+export EDITOR='vim'
+export VISUAL='vim'
+
+# ***VIM MODE SETTINGS***
 set editing-mode vi
 
 $if mode=vi
 
-# these are for vi-command mode
 set keymap vi-command
 
 # unbind space
@@ -12,10 +15,6 @@ set keymap vi-command
 " a":beginning-of-line
 " ;":end-of-line 
 
-"\C-a":beginning-of-line
-
-# Must be set in .bashrc
-#"\C-e":end-of-line 
 
 # jump left or right by one word
 "\C-h":shell-backward-word
@@ -27,9 +26,6 @@ set keymap vi-insert
 
 "\e[A": history-search-backward 
 "\e[B": history-search-forward
-
-"\C-a":beginning-of-line
-"\C-e":end-of-line
 
 # jump left or right by one word
 "\C-h":shell-backward-word
