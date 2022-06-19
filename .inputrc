@@ -1,5 +1,5 @@
-export EDITOR='vim'
-export VISUAL='vim'
+#export EDITOR='vim'
+#export VISUAL='vim'
 
 # ***VIM MODE SETTINGS***
 set editing-mode vi
@@ -16,9 +16,9 @@ set keymap vi-command
 " ;":end-of-line 
 
 
-# jump left or right by one word
-"\C-h":shell-backward-word
-"\C-l":shell-forward-word
+# # jump left or right by one word
+# "\C-h":shell-backward-word
+# "\C-l":shell-forward-word
 
 
 # these are for vi-insert mode
