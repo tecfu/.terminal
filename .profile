@@ -28,3 +28,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 complete -C /usr/bin/terraform terraform
+
+# For jupyter-lab. See: https://stackoverflow.com/a/67130797/3751385
+export PATH="$HOME/.local/bin:$PATH"
+
