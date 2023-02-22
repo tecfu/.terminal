@@ -4,8 +4,6 @@
 # ***VIM MODE SETTINGS***
 set editing-mode vi
 
-$if mode=vi
-
 set keymap vi-command
 
 # unbind space
@@ -14,11 +12,6 @@ set keymap vi-command
 # beginning and end of line shortcuts
 " a":beginning-of-line
 " ;":end-of-line 
-
-
-# # jump left or right by one word
-# "\C-h":shell-backward-word
-# "\C-l":shell-forward-word
 
 
 # these are for vi-insert mode
@@ -31,4 +24,7 @@ set keymap vi-insert
 "\C-h":shell-backward-word
 "\C-l":shell-forward-word
 
-$endif
+# printf "\033c"
+# "\C-k":clear-screen
+# Alt-k to clear the screen
+"\e\k":clear-screen
