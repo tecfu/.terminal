@@ -27,4 +27,5 @@ set keymap vi-insert
 # printf "\033c"
 # "\C-k":clear-screen
 # Alt-k to clear the screen
-"\e\k":clear-screen
+# "\e\k":clear-screen
+"^[k":clear-screen
