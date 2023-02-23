@@ -30,5 +30,8 @@ export NVM_DIR="$HOME/.nvm"
 complete -C /usr/bin/terraform terraform
 
 # For jupyter-lab. See: https://stackoverflow.com/a/67130797/3751385
-export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:$HOME/.local/bin
 
+# For Android studio
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
