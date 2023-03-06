@@ -1,8 +1,14 @@
-#export EDITOR='vim'
-#export VISUAL='vim'
+# "\e\k":clear-screen'
+# - The readline library can't differentiate between that ALT and ESC keys.
+#   Workarrounds: 
+#       We could rebind the alt key globally
+#       We could log keypresses and redirect to a script that checks the log to see if we pressed alt
+#       We could just use a terminal emulator with keybinding support (Alacritty)
 
 # ***VIM MODE SETTINGS***
 set editing-mode vi
+
+$if mode=vi
 
 set keymap vi-command
 
@@ -24,8 +30,4 @@ set keymap vi-insert
 "\C-h":shell-backward-word
 "\C-l":shell-forward-word
 
-# printf "\033c"
-# "\C-k":clear-screen
-# Alt-k to clear the screen
-# "\e\k":clear-screen
-"^[k":clear-screen
+$endif

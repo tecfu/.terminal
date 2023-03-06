@@ -1,9 +1,14 @@
 # Terminal Configuration Presets
 
-## What this file does:
+## What this configuration does:
 
 - Puts terminal in vi mode
 - Adds some vim key mappings
+
+## What this configuration doesn't do:
+
+- Add the C-k keybinding to reset the terminal in .inputrc or .profile. 
+- Instead we use the custom keybinding option from [Alacritty](https://github.com/alacritty/alacritty) to do that.
 
 ### Installation
 

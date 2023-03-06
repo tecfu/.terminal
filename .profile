@@ -3,6 +3,10 @@ stty -ixon > /dev/null 2>/dev/null
 
 # Set vimode, Vim as editor
 set -o vi
+
+bind -x '"\C-p":git status'
+#bind -x '"\e\k":printf "\033c"'
+
 #
 # Globstar: The pattern ‘**’ used in a filename expansion context will match all files and zero or more directories and subdirectories. If the pattern is followed by a ‘/’, only directories and subdirectories match.
 # To unset use:
