@@ -4,8 +4,8 @@ key_bindings:
   - { key: H,        mods: Alt,     chars: "\x1bh"                       }
   - { key: J,        mods: Control|Shift, action: ScrollToBottom         }
   - { key: K,        mods: Control|Shift, action: ScrollToTop            }
-  - { key: J,        mods: Control, action: ScrollPageDown               }
-  - { key: K,        mods: Control, action: ScrollPageUp                 }
+    #  - { key: J,        mods: Control, action: ScrollPageDown               }
+    #  - { key: K,        mods: Control, action: ScrollPageUp                 }
 
 mouse_bindings:
   - { mouse: Right, action: Paste }
