@@ -21,3 +21,15 @@ cursor:
     blinking: Always
   blink_interval: 500
   blink_timeout: 0
+
+colors:
+  cursor:
+    # If this is `false` the text cursor inverses
+    # the foreground and background colors.
+    custom_colors: true
+    # Text color when the cursor is above a character.
+    # Only used when `custom_colors` is `true`.
+    text: '0x000000'
+    # Cursor color.
+    # Only used when `custom_colors` is `true`.
+    cursor: '0x00ff00'
