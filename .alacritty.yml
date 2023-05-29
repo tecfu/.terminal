@@ -1,12 +1,23 @@
 key_bindings:
-  - { key: K,        mods: Alt,     chars: "printf \"\\033c\"\n"         }
-  - { key: J,        mods: Control|Shift, action: ScrollToBottom         }
-  - { key: K,        mods: Control|Shift, action: ScrollToTop            }
+  - { key: K, mods: Alt,     chars: "printf \"\\033c\"\n" }
+  - { key: J, mods: Control|Shift, action: ScrollToBottom }
+  - { key: K, mods: Control|Shift, action: ScrollToTop    }
     #  - { key: J,        mods: Control, action: ScrollPageDown               }
     #  - { key: K,        mods: Control, action: ScrollPageUp                 }
+    #
+  - { key: J, mods: Control, mode: Vi|~Search, action: ScrollHalfPageDown }
+  - { key: K, mods: Control, mode: Vi|~Search, action: ScrollHalfPageUp   }
 
 mouse_bindings:
   - { mouse: Right, action: Paste }
+
 scrolling:
   history: 100000
   multiplier: 10
+
+cursor:
+  style:
+    shape: Block
+    blinking: Always
+  blink_interval: 500
+  blink_timeout: 0
