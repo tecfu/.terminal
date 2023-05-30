@@ -37,6 +37,15 @@ $ . ~/.terminal/INSTALL.sh
   sudo apt-get install fonts-powerline
   ```
 
+  > For Alacritty font-powerline install won't work. Do:
+
+  ```
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+  unzip JetBrainsMono.zip
+  ```
+  Then install `JetBrains Mono Medium Nerd Font Complete.ttf`
+
+
 ### OPTIONAL: Change keymap for virtual terminals
 
 custom_keymap.kmap maps ESC to CAPS_LOCK
