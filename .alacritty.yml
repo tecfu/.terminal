@@ -1,27 +1,3 @@
-key_bindings:
-  - { key: K, mods: Alt,     chars: "printf \"\\033c\"\n" }
-  - { key: J, mods: Control|Shift, action: ScrollToBottom }
-  - { key: K, mods: Control|Shift, action: ScrollToTop    }
-    #  - { key: J,        mods: Control, action: ScrollPageDown               }
-    #  - { key: K,        mods: Control, action: ScrollPageUp                 }
-    #
-  - { key: J, mods: Control, mode: Vi|~Search, action: ScrollHalfPageDown }
-  - { key: K, mods: Control, mode: Vi|~Search, action: ScrollHalfPageUp   }
-
-mouse_bindings:
-  - { mouse: Right, action: Paste }
-
-scrolling:
-  history: 100000
-  multiplier: 10
-
-cursor:
-  style:
-    shape: Block
-    blinking: Always
-  blink_interval: 500
-  blink_timeout: 0
-
 colors:
   cursor:
     # If this is `false` the text cursor inverses
@@ -33,6 +9,16 @@ colors:
     # Cursor color.
     # Only used when `custom_colors` is `true`.
     cursor: '0x00ff00'
+
+cursor:
+  style:
+    shape: Block
+    blinking: Always
+  blink_interval: 500
+  blink_timeout: 0
+
+env:
+  WINIT_X11_SCALE_FACTOR: ".85"
 
 font:
   # https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
@@ -47,3 +33,33 @@ font:
   italic:
     family: "JetBrainsMono Nerd Font"
     style: Italic
+  size: 14
+
+key_bindings:
+  # Lead commands for clearing the terminal with a space so that they are ignored
+  # by the terminal history when `export HISTCONTROL=ignoreboth`
+  # https://stackoverflow.com/a/29188490/3751385
+  - { key: K, mods: Alt,     chars: " printf \"\\033c\"\n" }
+  - { key: K, mods: Command,     chars: " echo -e \"\\033c\"\n" }
+    #- { key: K, mods: Command, command: { program: "/usr/bin/clear", args: [""] } }
+  - { key: J, mods: Control|Shift, action: ScrollToBottom }
+  - { key: K, mods: Control|Shift, action: ScrollToTop    }
+    #  - { key: J,        mods: Control, action: ScrollPageDown               }
+    #  - { key: K,        mods: Control, action: ScrollPageUp                 }
+    #
+  - { key: J, mods: Control, mode: Vi|~Search, action: ScrollHalfPageDown }
+  - { key: K, mods: Control, mode: Vi|~Search, action: ScrollHalfPageUp   }
+  - { key: Up,   mods: Control|Shift,   action: ScrollPageUp   }
+  - { key: Down, mods: Control|Shift,   action: ScrollPageDown }
+
+mouse_bindings:
+  - { mouse: Right, action: Paste }
+
+scrolling:
+  history: 100000
+  multiplier: 10
+
+shell:
+  program: /bin/bash
+  args:
+    - --login

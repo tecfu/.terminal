@@ -33,6 +33,10 @@ export NVM_DIR="$HOME/.nvm"
 
 complete -C /usr/bin/terraform terraform
 
+# Ignore commands leading with a space in terminal history
+# https://stackoverflow.com/a/29188490/3751385
+export HISTCONTROL=ignoreboth
+
 # For jupyter-lab. See: https://stackoverflow.com/a/67130797/3751385
 export PATH=$PATH:$HOME/.local/bin
 
