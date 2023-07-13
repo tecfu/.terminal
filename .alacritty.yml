@@ -22,7 +22,7 @@ env:
 
 font:
   # https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
-  # Install JetBrains Mono Medium Nerd Font Complete.ttf,
+  # Install JetBrains Mono Regular Nerd Font Complete.ttf,
   # which maps to family: "JetBrainsMono Nerd Font"
   normal:
     family: "JetBrainsMono Nerd Font"
