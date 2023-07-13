@@ -2,9 +2,9 @@
 
 ###
 #   RUN THIS WITH /bin/bash NOT /bin/sh
-#   /bin/sh MAPS TO INCOMPATIBLE TERM EMULATORS 
+#   /bin/sh MAPS TO INCOMPATIBLE TERM EMULATORS
 #   IN SOME OS
-#   
+#
 #   ```
 #    $ /bin/bash UNINSTALL.sh
 #   ```
@@ -16,7 +16,10 @@ SYMLINKS=()
 SYMLINKS+=("$HOME/.bashrc")
 SYMLINKS+=("$HOME/.inputrc")
 SYMLINKS+=("$HOME/.profile")
-SYMLINKS+=("$HOME/.xprofile")
+SYMLINKS+=("$HOME/.alacritty.yml")
+SYMLINKS+=("$HOME/.scripts")
+
+
 #printf '%s\n' "${SYMLINKS[@]}"
 #
 for i in "${SYMLINKS[@]}"; do

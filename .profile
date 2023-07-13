@@ -13,13 +13,12 @@ bind -x '"\C-p":git status'
 # shopt -u globstar
 shopt -s globstar
 
-############################
-# COMMANDS FOR DESKTOP ENV
-############################
-
 # Get remote ip address
 alias ipv4lookup='dig +short myip.opendns.com @resolver1.opendns.com'
 alias ipv6lookup='ip -6 addr'
+
+# Custom Scripts
+alias fzgrep='~/.scripts/fzgrep.sh'
 
 source /etc/profile.d/bash_completion.sh
 
