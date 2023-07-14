@@ -49,6 +49,10 @@ key_bindings:
     #
   - { key: J, mods: Control, mode: Vi|~Search, action: ScrollHalfPageDown }
   - { key: K, mods: Control, mode: Vi|~Search, action: ScrollHalfPageUp   }
+  - { key: A, mode: Vi|~Search, action: First  }
+  - { key: Semicolon, mode: Vi|~Search, action: Last  }
+  - { key: Y, mode: Vi|~Search, action: Copy  }
+
   - { key: Up,   mods: Control|Shift,   action: ScrollPageUp   }
   - { key: Down, mods: Control|Shift,   action: ScrollPageDown }
 
