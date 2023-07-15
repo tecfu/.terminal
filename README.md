@@ -17,6 +17,14 @@ git clone https://github.com/tecfu/.terminal ~/.terminal
 . ~/.terminal/INSTALL.sh
 ```
 
+### OPTIONAL: Uninstall https://github.com/scop/bash-completion
+
+- Expanding wildcard searches with TAB doesn't work with this
+
+```
+sudo apt remove bash-completion
+```
+
 ### OPTIONAL: Install Powerline Fonts
 
 - Linx / Mac
