@@ -110,17 +110,20 @@ shopt -s globstar
 #source /etc/profile.d/bash_completion.sh
 
 # If there are multiple matches for completion, Tab should cycle through them
-bind 'TAB: menu-complete'
+# Disabled because to see the results you'll always select the first entry on tab
+#bind 'TAB: menu-complete'
+bind '"\C-j": menu-complete'
 
 # And Shift-Tab should cycle backwards
-bind '"\e[Z": menu-complete-backward'
+#bind '"\e[Z": menu-complete-backward'
+bind '"\C-k": menu-complete-backward'
 
 # Display a list of the matching files
-set show-all-if-ambiguous on
+bind 'set show-all-if-ambiguous on'
 
 # Perform partial (common) completion on the first Tab press, only start
 # cycling full results on the second Tab press (from bash version 5)
-set menu-complete-display-prefix on
+bind 'set menu-complete-display-prefix on'
 
 
 # Git
