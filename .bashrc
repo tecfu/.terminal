@@ -12,7 +12,8 @@ export OSH='/home/base/.oh-my-bash'
 OSH_THEME="brainy"
 THEME_SHOW_BATTERY="true"
 THEME_CLOCK_FORMAT="%m/%d %H:%M:%S"}
-
+THEME_SHOW_TODO="true"
+THEME_PROMPT_CHAR_PS1="$"
 
 # Uncomment the following line to use case-sensitive completion.
 # OMB_CASE_SENSITIVE="true"
