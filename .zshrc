@@ -163,6 +163,7 @@ bindkey -M vicmd '\040\073' end-of-line #works
 #
 ###############################################################################
 #
+bindkey '^[[Z' reverse-menu-complete
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle :compinstall filename '/home/base/.zshrc'
 
