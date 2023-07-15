@@ -91,7 +91,6 @@ bind -m vi-command -x '"p": paste_from_clipboard 1'
 bind -m vi-command -x '"yy": yank_line_to_clipboard'
 bind -m vi-command -x '"dd": kill_line_to_clipboard'
 
-
 ###############################################################################
 #
 # Autocompletion
@@ -109,6 +108,20 @@ shopt -s extglob
 shopt -s globstar
 # This script prevents wildcard (*) expansion, don't use
 #source /etc/profile.d/bash_completion.sh
+
+# If there are multiple matches for completion, Tab should cycle through them
+bind 'TAB: menu-complete'
+
+# And Shift-Tab should cycle backwards
+bind '"\e[Z": menu-complete-backward'
+
+# Display a list of the matching files
+set show-all-if-ambiguous on
+
+# Perform partial (common) completion on the first Tab press, only start
+# cycling full results on the second Tab press (from bash version 5)
+set menu-complete-display-prefix on
+
 
 # Git
 if [ -f ~/.git-completion.bash ]; then

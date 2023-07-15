@@ -18,6 +18,7 @@ SYMLINKS+=("$HOME/.inputrc")
 SYMLINKS+=("$HOME/.profile")
 SYMLINKS+=("$HOME/.alacritty.yml")
 SYMLINKS+=("$HOME/.scripts")
+SYMLINKS+=("$HOME/.zshrc")
 
 
 #printf '%s\n' "${SYMLINKS[@]}"

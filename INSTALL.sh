@@ -18,6 +18,7 @@ SYMLINKS=()
 SYMLINKS+=("$DIR/.bashrc $HOME/.bashrc")
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.profile $HOME/.profile")
+SYMLINKS+=("$DIR/.zshrc $HOME/.zshrc")
 SYMLINKS+=("$DIR/.alacritty.yml $HOME/.alacritty.yml")
 SYMLINKS+=("$DIR/.scripts $HOME/.scripts")
 
