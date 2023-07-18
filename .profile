@@ -1,8 +1,9 @@
-###############################################################################
+#################################
 #
 # Misc Config
 #
-###############################################################################
+#################################
+
 #Allows ctrl-s, ctrl-q in Vim
 #stty -ixon > /dev/null 2>/dev/null
 
@@ -51,12 +52,11 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-
-###############################################################################
+#################################
 #
 # Vi Mode Related
 #
-###############################################################################
+#################################
 
 # Set vimode, Vim as editor
 set -o vi
@@ -91,11 +91,11 @@ bind -m vi-command -x '"p": paste_from_clipboard 1'
 bind -m vi-command -x '"yy": yank_line_to_clipboard'
 bind -m vi-command -x '"dd": kill_line_to_clipboard'
 
-###############################################################################
+#################################
 #
 # Autocompletion
 #
-###############################################################################
+#################################
 
 # Bash
 
@@ -135,11 +135,12 @@ fi
 complete -C /usr/bin/terraform terraform
 
 
-###############################################################################
+#################################
 #
 # Aliases
 #
-###############################################################################
+#################################
+
 # Custom Scripts
 alias fzgrep='~/.scripts/fzgrep.sh'
 
@@ -151,11 +152,15 @@ alias ipv6lookup='ip -6 addr'
 alias nvim='~/Applications/nvim.appimage'
 
 
-###############################################################################
+#################################
 #
 # Environment Variables
 #
-###############################################################################
+#################################
+
+# prevent oh-my-bash from paging git results
+export GIT_PAGER=""
+
 # Ignore commands leading with a space in terminal history
 # https://stackoverflow.com/a/29188490/3751385
 export HISTCONTROL=ignoreboth
