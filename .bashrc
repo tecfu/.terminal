@@ -5,15 +5,11 @@ case $- in
 esac
 
 # Path to your oh-my-bash installation.
-export OSH='/home/base/.oh-my-bash'
+export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="brainy"
-THEME_SHOW_BATTERY="true"
-THEME_CLOCK_FORMAT="%m/%d %H:%M:%S"}
-THEME_SHOW_TODO="true"
-THEME_PROMPT_CHAR_PS1="$"
+OSH_THEME="kitsune"
 
 # Uncomment the following line to use case-sensitive completion.
 # OMB_CASE_SENSITIVE="true"
