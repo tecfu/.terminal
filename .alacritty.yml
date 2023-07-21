@@ -39,9 +39,21 @@ key_bindings:
   # Lead commands for clearing the terminal with a space so that they are ignored
   # by the terminal history when `export HISTCONTROL=ignoreboth`
   # https://stackoverflow.com/a/29188490/3751385
-  - { key: K, mods: Alt,     chars: " printf \"\\033c\"\n" }
+
+  # Linux Keybinding to clear terminal
+
+  - { key: K, mods: Alt, chars: " clear \x0D" }
+  # reset works but is slow
+  #- { key: K, mods: Alt, chars: "reset \x0D" }
+  # " echo -e \"\\033c\"\n" works in terminal but not vimshell
+  #- { key: K, mods: Alt,     chars: " echo -e \"\\033c\"\n" }
+  # " printf \"\\033c\"\n" works in terminal but not vimshell
+  #- { key: K, mods: Alt,     chars: " printf \"\\033c\"\n" }
+  
+  # Mac Keybinding to clear terminal
   - { key: K, mods: Command,     chars: " echo -e \"\\033c\"\n" }
-    #- { key: K, mods: Command, command: { program: "/usr/bin/clear", args: [""] } }
+  #- { key: K, mods: Command, command: { program: "/usr/bin/clear", args: [""] } }
+  
   - { key: J, mods: Control|Shift, action: ScrollToBottom }
   - { key: K, mods: Control|Shift, action: ScrollToTop    }
     #  - { key: J,        mods: Control, action: ScrollPageDown               }
