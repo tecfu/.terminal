@@ -3,7 +3,11 @@
 #
 # Usage
 #
-# $cat json-array.json | ./convert-json-to-sqs-event.sh
+# - Bash
+# $ cat json-array.json | ./convert-json-to-sqs-event.sh
+#
+# - Vim
+# : '<,'>!./convert-json-to-sqs-event.sh
 #################################
 
 input=$(cat)
