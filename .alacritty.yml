@@ -53,16 +53,15 @@ key_bindings:
   - { key: K, mods: Command, chars: " echo -e \"\\033c\"\r" }
   #- { key: K, mods: Command, command: { program: "/usr/bin/clear", args: [""] } }
   
-  - { key: J, mods: Control|Shift, action: ScrollToBottom }
-  - { key: K, mods: Control|Shift, action: ScrollToTop    }
-    #  - { key: J,        mods: Control, action: ScrollPageDown               }
-    #  - { key: K,        mods: Control, action: ScrollPageUp                 }
-    #
-  - { key: J, mods: Control, mode: Vi|~Search, action: ScrollHalfPageDown }
-  - { key: K, mods: Control, mode: Vi|~Search, action: ScrollHalfPageUp   }
-  - { key: A, mode: Vi|~Search, action: First  }
-  - { key: Semicolon, mode: Vi|~Search, action: Last  }
-  - { key: Y, mode: Vi|~Search, action: Copy  }
+  - { key: J, mods: Control|Shift, action: ScrollLineDown }
+  - { key: K, mods: Control|Shift, action: ScrollLineUp }
+  # Control-J, Control-K scroll when not running an app (i.e. vim)
+  - { key: J, mods: Control, mode: ~AppCursor|~AppKeypad, action: ScrollPageDown }
+  - { key: K, mods: Control, mode: ~AppCursor|~AppKeypad, action: ScrollPageUp }
+
+  - { key: A, mode: Vi|~Search, action: First }
+  - { key: Semicolon, mode: Vi|~Search, action: Last }
+  - { key: Y, mode: Vi|~Search, action: Copy }
 
   - { key: Up,   mods: Control|Shift,   action: ScrollPageUp   }
   - { key: Down, mods: Control|Shift,   action: ScrollPageDown }

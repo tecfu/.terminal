@@ -111,12 +111,12 @@ shopt -s globstar
 
 # If there are multiple matches for completion, Tab should cycle through them
 # Disabled because to see the results you'll always select the first entry on tab
-#bind 'TAB: menu-complete'
-bind '"\C-j": menu-complete'
+bind 'TAB: menu-complete'
+#bind '"\C-j": menu-complete' # conflicts with .alacritty ScrollPageDown
 
 # And Shift-Tab should cycle backwards
-#bind '"\e[Z": menu-complete-backward'
-bind '"\C-k": menu-complete-backward'
+bind '"\e[Z": menu-complete-backward'
+#bind '"\C-k": menu-complete-backward' # conflicts with .alacritty ScrollPageUp
 
 # Display a list of the matching files
 bind 'set show-all-if-ambiguous on'
