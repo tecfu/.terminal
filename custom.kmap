@@ -1,3 +1,10 @@
+# Apply Using:
+# ```
+# sudo loadkeys custom.kmap
+# ```
+# See also:
+# https://superuser.com/questions/290115/how-to-change-console-keymap-in-linux
+# https://deskthority.net/wiki/Loadkeys#Comments
 keymaps 0-127
 keycode   1 = CtrlL_Lock
 keycode  58 = Escape
