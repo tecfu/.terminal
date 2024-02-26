@@ -60,5 +60,12 @@ for i in "${SYMLINKS[@]}"; do
   fi
 done
 
+echo "Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
+sudo groupadd tecfu-terminal-loadkeys           
+sudo chgrp tecfu-terminal-loadkeys /usr/bin/loadkeys
+sudo chmod 4750 /usr/bin/loadkeys 
+sudo gpasswd -a $USER tecfu-terminal-loadkeys     
+
 printf "\n"
+echo "YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
 echo DONE

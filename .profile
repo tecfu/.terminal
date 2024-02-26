@@ -1,3 +1,9 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 #################################
 #
 # General Config
@@ -38,3 +44,11 @@ source ~/.terminal/profile-autocompletion.sh
 #################################
 
 source ~/.terminal/profile-env.sh
+
+#################################
+#
+# Environment Keymappings
+#
+#################################
+
+source ~/.terminal/profile-virtualterminal-keymappings.sh
