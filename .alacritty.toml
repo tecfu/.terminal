@@ -1,0 +1,98 @@
+[colors.cursor]
+cursor = "0x00ff00"
+text = "0x000000"
+
+[cursor]
+blink_interval = 500
+blink_timeout = 0
+
+[cursor.style]
+blinking = "Always"
+shape = "Block"
+
+[env]
+WINIT_X11_SCALE_FACTOR = ".85"
+
+[font]
+size = 14
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[[keyboard.bindings]]
+chars = " clear \r"
+key = "K"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = " echo -e \"\\033c\"\r"
+key = "K"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "J"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "K"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "J"
+mode = "~AppCursor|~AppKeypad"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "K"
+mode = "~AppCursor|~AppKeypad"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "First"
+key = "A"
+mode = "Vi|~Search"
+
+[[keyboard.bindings]]
+action = "Last"
+key = "Semicolon"
+mode = "Vi|~Search"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "Y"
+mode = "Vi|~Search"
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "Up"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "Down"
+mods = "Control|Shift"
+
+[[mouse.bindings]]
+action = "Paste"
+mouse = "Right"
+
+[scrolling]
+history = 100000
+multiplier = 10
+
+[shell]
+args = ["--login"]
+program = "/bin/bash"

@@ -16,11 +16,12 @@ SYMLINKS=()
 SYMLINKS+=("$HOME/.bashrc")
 SYMLINKS+=("$HOME/.inputrc")
 SYMLINKS+=("$HOME/.profile")
-SYMLINKS+=("$HOME/.alacritty.yml")
+SYMLINKS+=("$HOME/.alacritty.toml")
 SYMLINKS+=("$HOME/.scripts")
 SYMLINKS+=("$HOME/.zshrc")
 
 
+echo "Removing symlinks:"
 #printf '%s\n' "${SYMLINKS[@]}"
 #
 for i in "${SYMLINKS[@]}"; do
@@ -34,6 +35,9 @@ for i in "${SYMLINKS[@]}"; do
     mv ${i}.saved $i
   fi
 done
+
+echo "Removing tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
+sudo groupdel tecfu-terminal-loadkeys
 
 printf "\n"
 echo DONE

@@ -1,31 +1,49 @@
 # Terminal Configuration Presets
 
-## What this configuration does
+## Scope
 
-- Puts terminal in vi mode
-- Adds some vim key mappings
+- Files
+  - 256colors2.pl
+    - Install 24 bit color support for virtual terminals
+  - .alacritty.yml
+    - Keymappings for alacritty
+  - .bashrc
+    - oh-my-bash config
+  - custom.kmap
+    - Remaps CAPS_LOCK to ESC in \*nix virtual terminal using `loadkeys`
+  - .bash_completion.sh
+    - Tmux autocompletion file
+  - .inputrc
+    - Custom key mappings
+  - .profile
+    - index for profile-\* files
+  - profile-aliases-private.sh
+    - Aliases that are specific to your machine or which you don't want public
+  - profile-aliases-public.sh
+    - Aliases that are useable on all your machines
+  - profile-autocompletion.sh
+    - General
+      - Bash
+    - Git
+    - Terraform
+    - Tmux
+      - Bash: Uses https://github.com/imomaliev/tmux-bash-completion
+  - profile-env.sh
+    - Environment variables
+  - profile-general.sh
+    - General configuration
+  - profile-vi-mode.sh
+    - Puts terminal in vi mode key mappings
+    - Adds some vim key mappings
 
-## What this configuration doesn't do
-
-- Add the C-k keybinding to reset the terminal in .inputrc or .profile.
-- Instead we use the custom keybinding option from [Alacritty](https://github.com/alacritty/alacritty) to do that.
-
-### Installation
+## Installation
 
 ```
 git clone https://github.com/tecfu/.terminal ~/.terminal
 . ~/.terminal/INSTALL.sh
 ```
 
-### OPTIONAL: Uninstall https://github.com/scop/bash-completion
-
-- Expanding wildcard searches with TAB doesn't work with this
-
-```
-sudo apt remove bash-completion
-```
-
-### OPTIONAL: Install Powerline Fonts
+### OPTIONAL: Install Nerd Fonts
 
 - Linx / Mac
 
@@ -52,9 +70,9 @@ sudo apt remove bash-completion
 
 custom_keymap.kmap maps ESC to CAPS_LOCK
 
-```
-$ sudo loadkeys custom_keymap.kmap
-$ echo "/usr/bin/loadkeys $HOME/custom_keymap.kmap" >> /etc/rc.local
+```bash
+sudo loadkeys custom_keymap.kmap
+echo "/usr/bin/loadkeys $HOME/custom_keymap.kmap" >> /etc/rc.local
 ```
 
 See: https://superuser.com/questions/290115/how-to-change-console-keymap-in-linux
@@ -65,7 +83,7 @@ See:
 
 https://github.com/tecfu/kmscon
 
-### Checking your terminal for 256 colors:
+### Checking your terminal for 256 colors
 
 - Run the file ./256colors2.pl and check for tiled blocks that
   represent 256 colors in the output.

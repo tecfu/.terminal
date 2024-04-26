@@ -19,8 +19,8 @@ SYMLINKS+=("$DIR/.bashrc $HOME/.bashrc")
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.profile $HOME/.profile")
 SYMLINKS+=("$DIR/.zshrc $HOME/.zshrc")
-SYMLINKS+=("$DIR/.alacritty.yml $HOME/.alacritty.yml")
-SYMLINKS+=("$DIR/.scripts $HOME/.scripts")
+SYMLINKS+=("$DIR/.bash_completion $HOME/.bash_completion")
+SYMLINKS+=("$DIR/.alacritty.toml $HOME/.alacritty.toml")
 
 # Check OS
 unameOut="$(uname -s)"
@@ -34,7 +34,7 @@ esac
 
 if [ ${machine} = MinGw ]; then
   # assume we are running git bash
-  echo "You're running Windows, so you'll want to install Powerline/Nerd Fonts if you haven't already"
+  echo "You are running Windows. You will want to install Powerline/Nerd Fonts if you haven't already"
   echo "See: https://docs.microsoft.com/en-us/windows/terminal/tutorials/powerline-setup"
   echo "Then use this font in your terminal: [DejaVu Sans Mono for Powerline]"
   # powershell ./setup-powerline-fonts-windows.ps1
@@ -60,5 +60,12 @@ for i in "${SYMLINKS[@]}"; do
   fi
 done
 
+echo "Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
+sudo groupadd tecfu-terminal-loadkeys           
+sudo chgrp tecfu-terminal-loadkeys /usr/bin/loadkeys
+sudo chmod 4750 /usr/bin/loadkeys 
+sudo gpasswd -a $USER tecfu-terminal-loadkeys     
+
 printf "\n"
+echo "YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
 echo DONE
