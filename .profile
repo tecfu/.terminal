@@ -43,7 +43,8 @@ source ~/.terminal/profile-autocompletion.sh
 #
 #################################
 
-source ~/.terminal/profile-env.sh
+source ~/.terminal/profile-env-public.sh
+source ~/.terminal/profile-env-private.sh
 
 #################################
 #
