@@ -10,6 +10,12 @@
 #   ```
 #
 ###
+
+PRODUCT="TERMINAL"
+
+OPENING_MESSAGE="STARTING $PRODUCT CONFIGURATION INSTALL"
+echo -e "\033[0;32m$OPENING_MESSAGE\033[0m"
+
 ### Get scripts parent directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -67,5 +73,9 @@ sudo chmod 4750 /usr/bin/loadkeys
 sudo gpasswd -a $USER tecfu-terminal-loadkeys     
 
 printf "\n"
-echo "YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
-echo DONE
+
+WARN_MESSAGE="WARN: YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
+echo -e "\033[0;33m$WARN_MESSAGE\033[0m"
+
+CLOSING_MESSAGE="ENDING $PRODUCT CONFIGURATION INSTALL"
+echo -e "\033[0;32m$CLOSING_MESSAGE\033[0m"
