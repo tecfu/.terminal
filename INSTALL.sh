@@ -16,6 +16,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # declare array
 SYMLINKS=()
 SYMLINKS+=("$DIR/.bashrc $HOME/.bashrc")
+SYMLINKS+=("$DIR/.profile $HOME/.profile")
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.bash_profile $HOME/.bash_profile")
 SYMLINKS+=("$DIR/.zshrc $HOME/.zshrc")
