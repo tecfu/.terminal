@@ -49,22 +49,28 @@ for i in "${SYMLINKS[@]}"; do
   # ${OUT[1]} is path config file should be at
   #no config, create symlink to one
   if [ ! -f "${OUT[1]}" ] && [ ! -L "${OUT[1]}" ]; then
-    echo "Creating $i"
+    echo "SYMLINK: $i"
     ln -s $i
 
   #config exists; save if doesn't point to correct target
   elif [ "$(readlink -- "${OUT[1]}")" != "${OUT[0]}" ]; then
-    echo "MOVING ${OUT[1]} to ${OUT[1]}.saved"
+    echo "MOVING: ${OUT[1]} to ${OUT[1]}.saved"
     mv "${OUT[1]}" "${OUT[1]}.saved"
+    echo "SYMLINK: $i"
     ln -s $i
   fi
 done
 
-echo "Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
-sudo groupadd tecfu-terminal-loadkeys           
-sudo chgrp tecfu-terminal-loadkeys /usr/bin/loadkeys
-sudo chmod 4750 /usr/bin/loadkeys 
-sudo gpasswd -a $USER tecfu-terminal-loadkeys     
+if which Xorg &> /dev/null; then
+    echo "INFO: X Window System is installed, skipping loadkeys group add for ESC remap"
+else
+    echo "INFO: X Window System is not installed."
+    echo "INFO: Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
+    sudo groupadd tecfu-terminal-loadkeys           
+    sudo chgrp tecfu-terminal-loadkeys /usr/bin/loadkeys
+    sudo chmod 4750 /usr/bin/loadkeys 
+    sudo gpasswd -a $USER tecfu-terminal-loadkeys     
+fi
 
 WARN_MESSAGE="WARN: YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
 echo -e "\033[0;33m$WARN_MESSAGE\033[0m"
