@@ -18,3 +18,8 @@ alias ipv6lookup='ip -6 addr'
 # copy command output directly to clipboard
 alias cb='xclip -selection clipboard'
 
+# alacritty
+alias dup='alacritty --working-directory=$(pwd) &'
+
+# docker
+alias dc='docker rm -f $(docker ps -aq) || true; docker ps -aq'
