@@ -14,7 +14,7 @@ shape = "Block"
 WINIT_X11_SCALE_FACTOR = ".85"
 
 [font]
-size = 14
+size = 16
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
