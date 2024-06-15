@@ -1,4 +1,4 @@
-# Useage: python python-stdio-proxy.py --cmd "node eslint-language_server --stdio" --port 2087
+# Usage: python3 python-stdio-proxy.py --cmd "vscode-eslint-language-server --stdio" --port 12345
 
 import socket
 import threading
