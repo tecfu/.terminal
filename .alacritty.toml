@@ -101,3 +101,7 @@ multiplier = 10
 [shell]
 args = ["--login"]
 program = "/bin/bash"
+
+# Remaps option key to alt key in MacOS
+[window]
+option_as_alt = "Both"
