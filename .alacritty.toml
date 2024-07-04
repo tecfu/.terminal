@@ -85,6 +85,11 @@ action = "ScrollLineDown"
 key = "Down"
 mods = "Control|Shift"
 
+[[keyboard.bindings]]
+action = 'SpawnNewInstance'
+key = 'T'
+mods = 'Control|Command'
+
 [[mouse.bindings]]
 action = "Paste"
 mouse = "Right"
