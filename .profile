@@ -18,7 +18,9 @@ source ~/.terminal/profile-general.sh
 #
 #################################
 
-source ~/.terminal/profile-vi-mode.sh
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    source ~/.terminal/profile-vi-mode.sh
+fi
 
 #################################
 #
