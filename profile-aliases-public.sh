@@ -16,7 +16,7 @@ alias ipv6lookup='ip -6 addr'
 
 # xclip
 # copy command output directly to clipboard
-alias cb='xclip -selection clipboard'
+alias cb='xsel --clipboard --input'
 
 # alacritty
 alias dup='alacritty --working-directory=$(pwd) &'
