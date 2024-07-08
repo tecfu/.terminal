@@ -55,3 +55,14 @@ source ~/.terminal/profile-env-private.sh
 #################################
 
 source ~/.terminal/profile-virtualterminal-keymappings.sh
+
+#################################
+#
+# OS Specific Configs
+#
+#################################
+
+if [ "$(uname)" == "Darwin" ]; then
+    source ~/.terminal/profile-path-public.mac.sh
+fi
+
