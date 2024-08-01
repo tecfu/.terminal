@@ -4,48 +4,31 @@
 #
 #################################
 
-# Bash
-
-## General
-
-# enable extended pattern matching
+# Enable extended pattern matching
 shopt -s extglob
 
-# The pattern ‘**’ used in a filename expansion context will match all files and zero or more directories and subdirectories. If the pattern is followed by a ‘/’, only directories and subdirectories match.
-# To unset use:
-# shopt -u globstar
-shopt -s globstar
-# This script prevents wildcard (*) expansion, don't use
-#source /etc/profile.d/bash_completion.sh
-
-# If there are multiple matches for completion, Tab should cycle through them
-# Disabled because to see the results you'll always select the first entry on tab
-bind 'TAB: menu-complete'
-#bind '"\C-j": menu-complete' # conflicts with .alacritty ScrollPageDown
-
-# And Shift-Tab should cycle backwards
-bind '"\e[Z": menu-complete-backward'
-#bind '"\C-k": menu-complete-backward' # conflicts with .alacritty ScrollPageUp
-
-# Display a list of the matching files
+# Show all matches if ambiguous
 bind 'set show-all-if-ambiguous on'
 
-# Perform partial (common) completion on the first Tab press, only start
-# cycling full results on the second Tab press (from bash version 5)
+# Perform partial completion on the first Tab press
 bind 'set menu-complete-display-prefix on'
 
-
-# Git
+# Source git completion if available
 if [ -f ~/.git-completion.bash ]; then
-   source ~/.git-completion.bash
+  source ~/.git-completion.bash
 fi
 
-# Terraform
+# Terraform completion
 complete -C /usr/bin/terraform terraform
 
-# Tmux
+# Linux specific configuration
+if [ "$(uname)" = "Linux" ]; then
+  # Linux specific configuration
+  # Add your Linux-specific configuration commands here
+  # Enable recursive globbing
+  shopt -s globstar
 
-# Tmux autocompletion is contained in the .bash_completion file, which is read
-# by default by `bash-completion`. This should be installed by default.
-# In case that it is not:
-# `sudo apt install bash-completion`
+  # Bind Tab to menu-complete
+  bind 'TAB: menu-complete'
+  bind '"\e[Z": menu-complete-backward'
+fi
