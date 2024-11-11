@@ -64,5 +64,7 @@ source ~/.terminal/profile-virtualterminal-keymappings.sh
 
 if [ "$(uname)" == "Darwin" ]; then
     source ~/.terminal/profile-path-public.mac.sh
+elif [ "$(uname)" == "Linux" ]; then
+    source ~/.terminal/profile-path-public.linux.sh
 fi
 
