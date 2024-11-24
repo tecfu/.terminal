@@ -52,7 +52,7 @@ git clone https://github.com/tecfu/.terminal ~/.terminal
   unzip JetBrainsMono.zip
   ```
 
-  Then install `JetBrains Mono Medium Nerd Font Complete.ttf`
+  Then install `JetBrains Mono Regular Nerd Font Complete.ttf`
 
 - Windows
 
