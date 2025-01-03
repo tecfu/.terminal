@@ -14,16 +14,6 @@ source ~/.terminal/profile-general.sh
 
 #################################
 #
-# Vi Mode Related
-#
-#################################
-
-if [[ "$OSTYPE" != "darwin"* ]]; then
-    source ~/.terminal/profile-vi-mode.sh
-fi
-
-#################################
-#
 # Aliases
 #
 #################################

@@ -1,11 +1,8 @@
 #################################
 #
-# Vi Mode Related
+# Vi Mode Helper Functions
 #
 #################################
-
-# Set vimode, Vim as editor
-set -o vi
 
 # Macros to enable yanking, killing and putting to and from the system clipboard in vi-mode. Only supports yanking and killing the whole line.
 # see: https://unix.stackexchange.com/a/595798/146921
