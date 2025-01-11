@@ -87,3 +87,11 @@ https://github.com/tecfu/kmscon
 
 - Run the file ./256colors2.pl and check for tiled blocks that
   represent 256 colors in the output.
+
+### Troubleshooting
+
+- Search for a the source of an alias:
+
+    ```
+    ag 'alias vim' ~/.terminal/*
+    ```
