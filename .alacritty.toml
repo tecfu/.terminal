@@ -30,8 +30,11 @@ style = "Regular"
 
 [keyboard]
 bindings = [
-  { key = "K", mods = "Alt", chars = " echo -e \"\\033c\"\r" },
-  { key = "K", mods = "Command", chars = " echo -e \"\\033c\"\r" },
+  # clears the screen even if characters have already been input
+  # linux
+  { key = "K", mods = "Alt", chars = "\u0015 echo -e \"\\033c\"\r" },
+  # mac 
+  { key = "K", mods = "Command", chars ="\u0015 echo -e \"\\033c\"\r" },
   { key = "J", mods = "Control|Shift", action = "ScrollLineDown" },
   { key = "K", mods = "Control|Shift", action = "ScrollLineUp" },
   { key = "J", mods = "Control", action = "ScrollPageDown", mode = "~AppCursor|~AppKeypad" },
