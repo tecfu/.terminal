@@ -28,67 +28,21 @@ style = "Italic"
 family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
-[[keyboard.bindings]]
-chars = " clear \r"
-key = "K"
-mods = "Alt"
-
-[[keyboard.bindings]]
-chars = " echo -e \"\\033c\"\r"
-key = "K"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "ScrollLineDown"
-key = "J"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "ScrollLineUp"
-key = "K"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "ScrollPageDown"
-key = "J"
-mode = "~AppCursor|~AppKeypad"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollPageUp"
-key = "K"
-mode = "~AppCursor|~AppKeypad"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "First"
-key = "A"
-mode = "Vi|~Search"
-
-[[keyboard.bindings]]
-action = "Last"
-key = "Semicolon"
-mode = "Vi|~Search"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "Y"
-mode = "Vi|~Search"
-
-[[keyboard.bindings]]
-action = "ScrollLineUp"
-key = "Up"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "ScrollLineDown"
-key = "Down"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = 'SpawnNewInstance'
-key = 'T'
-mods = 'Control|Command'
+[keyboard]
+bindings = [
+  { key = "K", mods = "Alt", chars = " echo -e \"\\033c\"\r" },
+  { key = "K", mods = "Command", chars = " echo -e \"\\033c\"\r" },
+  { key = "J", mods = "Control|Shift", action = "ScrollLineDown" },
+  { key = "K", mods = "Control|Shift", action = "ScrollLineUp" },
+  { key = "J", mods = "Control", action = "ScrollPageDown", mode = "~AppCursor|~AppKeypad" },
+  { key = "K", mods = "Control", action = "ScrollPageUp", mode = "~AppCursor|~AppKeypad" },
+  { key = "A", mode = "Vi|~Search", action = "First" },
+  { key = "Semicolon", mode = "Vi|~Search", action = "Last" },
+  { key = "Y", mode = "Vi|~Search", action = "Copy" },
+  { key = "Up", mods = "Control|Shift", action = "ScrollLineUp" },
+  { key = "Down", mods = "Control|Shift", action = "ScrollLineDown" },
+  { key = 'T', mods = 'Control|Command', action = 'SpawnNewInstance' },
+]
 
 [[mouse.bindings]]
 action = "Paste"
@@ -98,7 +52,7 @@ mouse = "Right"
 history = 100000
 multiplier = 10
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/bash"
 
