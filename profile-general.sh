@@ -3,10 +3,6 @@
 # General Config
 #
 #################################
-
-# Make vim the default editor
-export EDITOR='vim'
-
 #Allows ctrl-s, ctrl-q in Vim
 #stty -ixon > /dev/null 2>/dev/null
 
