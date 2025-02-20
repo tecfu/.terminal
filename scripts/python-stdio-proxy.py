@@ -6,15 +6,16 @@ import subprocess
 import argparse
 
 # Logging setup
-LOGFILE_IN = "python-proxy-in.log"
-LOGFILE_OUT = "python-proxy-out.log"
-RAW_LOGFILE = "python-proxy-raw.log"
+RAW_LOGFILE = "${HOME}/python-proxy-raw.log"
 
 def log_message(logfile, message):
     with open(logfile, 'a') as f:
         f.write(message + '\n')
 
 def handle_client(client_socket, server_process):
+
+    log_message(RAW_LOGFILE, f"CLIENT > SERVER: Starting new client handler")
+
     def forward_to_server():
         while True:
             try:
