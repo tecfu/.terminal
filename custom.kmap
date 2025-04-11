@@ -1,9 +1,12 @@
-# Apply Using:
+# Motivation:
+#
+#  - Use the `loadkeys` command for remapping keys in the Linux console (TTY), i.e. when no X11 or Wayland
+#  - Only works in Linux console (TTY), not in GUI environments
+#
+# Usage:
 # ```
 # sudo loadkeys custom.kmap
 # ```
-#
-# We use `loadkeys` method because it does not require uninstall
 #
 # See also:
 # https://superuser.com/questions/290115/how-to-change-console-keymap-in-linux
