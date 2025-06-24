@@ -3,6 +3,10 @@
 # Aliases
 #
 #################################
+# aider
+function aiderpop() {
+  alacritty --class Aider,Aider -e aider "$@"
+}
 
 # bookmark
 alias vm='bm'
