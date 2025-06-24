@@ -32,3 +32,5 @@ alias dc='docker rm -f $(docker ps -aq) || true; docker ps -aq'
 # usage: `output=$(aws-log-explorer --profile localstack --endpoint http://localhost:4566) && echo "$output" | nvim -`
 alias aws-log-explorer='~/.terminal/scripts/aws-cloudwatch-explorer.sh'
 alias aws-delete-log-groups='~/.terminal/scripts/aws-cloudwatch-delete-log-groups.sh'
+
+alias citrix='firejail --whitelist=/var/lib/snapd/desktop/dconf/profile --whitelist='${HOME}/.ICAClient' --no-profile /opt/Citrix/ICAClient/selfservice'
