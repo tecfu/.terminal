@@ -33,4 +33,10 @@ alias dc='docker rm -f $(docker ps -aq) || true; docker ps -aq'
 alias aws-log-explorer='~/.terminal/scripts/aws-cloudwatch-explorer.sh'
 alias aws-delete-log-groups='~/.terminal/scripts/aws-cloudwatch-delete-log-groups.sh'
 
-alias citrix='firejail --whitelist=/var/lib/snapd/desktop/dconf/profile --whitelist='${HOME}/.ICAClient' --no-profile /opt/Citrix/ICAClient/selfservice'
+alias citrix='/opt/Citrix/ICAClient/selfservice'
+
+alias citrix-firejail='firejail --whitelist=/var/lib/snapd/desktop/dconf/profile --whitelist='${HOME}/.ICAClient' --noprofile /opt/Citrix/ICAClient/selfservice'
+
+alias keep-alive-browser='~/Applications/Chromium-stable-136.0.7103.59-x86_64.AppImage --remote-debugging-port=9222 --profile-dir="/home/base/.config/chromium/Default"'
+
+alias keep-alive-runner='node ~/Documents/GitHub/teams-keep-alive/src/index.js 4 --browser-debug-port=9222 --randomize=60'

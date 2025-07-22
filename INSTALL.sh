@@ -73,5 +73,8 @@ else
     sudo gpasswd -a $USER tecfu-terminal-loadkeys     
 fi
 
+# Install oh-my-bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
 WARN_MESSAGE="WARN: YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
 echo -e "\033[0;33m$WARN_MESSAGE\033[0m"
