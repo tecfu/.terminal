@@ -1,3 +1,5 @@
+# Check ./profile-env-private.sh for $EDITOR variable
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
