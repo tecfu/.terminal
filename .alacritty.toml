@@ -36,6 +36,9 @@ bindings = [
   # mac 
   { key = "K", mods = "Command", chars ="\u0015 echo -e \"\\033c\"\r" },
   { key = "J", mods = "Control|Shift", action = "ScrollLineDown" },
+  # force explicit CSI-u encoding for Shift+Enter: tmux cannot negotiate the
+  # kitty protocol with alacritty, which otherwise degrades this to plain \r
+  { key = "Return", mods = "Shift", chars = "\u001b[13;2u" },
   { key = "K", mods = "Control|Shift", action = "ScrollLineUp" },
   { key = "J", mods = "Control", action = "ScrollPageDown", mode = "~AppCursor|~AppKeypad" },
   { key = "K", mods = "Control", action = "ScrollPageUp", mode = "~AppCursor|~AppKeypad" },
