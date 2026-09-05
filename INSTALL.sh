@@ -41,6 +41,27 @@ if [ ${machine} = MinGw ]; then
   # powershell ./setup-powerline-fonts-windows.ps1
 fi
 
+if [ ${machine} = Linux ] || [ ${machine} = Mac ]; then
+  # Install the bundled Nerd Font required by .alacritty.toml
+  FONT_SRC="$DIR/../.vim/fonts/JetBrains Mono Regular Nerd Font Complete.ttf"
+  if [ -f "$FONT_SRC" ]; then
+    # fontconfig ships with Ubuntu desktop; install it if missing
+    if ! command -v fc-cache &> /dev/null && command -v apt-get &> /dev/null; then
+      echo "INFO: Installing fontconfig..."
+      sudo apt-get install -y fontconfig
+    fi
+    if command -v fc-cache &> /dev/null; then
+      mkdir -p "$HOME/.local/share/fonts"
+      cp -u "$FONT_SRC" "$HOME/.local/share/fonts/"
+      fc-cache -f "$HOME/.local/share/fonts" &> /dev/null
+      echo "INFO: Installed JetBrainsMono Nerd Font to ~/.local/share/fonts"
+    fi
+  else
+    echo "WARN: Bundled Nerd Font not found at $FONT_SRC"
+    echo "WARN: Alacritty config expects 'JetBrainsMono Nerd Font'. Install it manually."
+  fi
+fi
+
 #printf '%s\n' "${SYMLINKS[@]}"
 #
 for i in "${SYMLINKS[@]}"; do

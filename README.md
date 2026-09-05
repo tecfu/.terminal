@@ -43,9 +43,13 @@ git clone https://github.com/tecfu/.terminal ~/.terminal
 . ~/.terminal/INSTALL.sh
 ```
 
-### OPTIONAL: Install Nerd Fonts
+### Install Nerd Fonts
 
-- Linx / Mac
+`INSTALL.sh` copies the bundled JetBrainsMono Nerd Font to `~/.local/share/fonts` and refreshes the font cache automatically on Linux and Mac.
+
+Manual install (or if the bundled font is missing):
+
+- Linux / Mac
 
   ```
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
