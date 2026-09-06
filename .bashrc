@@ -145,3 +145,6 @@ source "$OSH"/oh-my-bash.sh
 #
 # override oh-my-bash from changing background color of 777 directories
 LS_COLORS="$LS_COLORS:ow=103;30;01"
+
+# private env (cargo/volta PATH, API keys) — gitignored, survives submodule updates
+[ -f "$HOME/.terminal/profile-env-private.sh" ] && source "$HOME/.terminal/profile-env-private.sh"
