@@ -104,11 +104,6 @@ for i in "${SYMLINKS[@]}"; do
   fi
 done
 
-for i in "${LOADERS[@]}"; do
-  IFS=' ' read -ra OUT <<< "$i"
-  install_loader "${OUT[0]}" "${OUT[1]}"
-done
-
 if which Xorg &> /dev/null; then
     echo "INFO: X Window System is installed, skipping loadkeys group add for ESC remap"
 else
@@ -120,12 +115,23 @@ else
     sudo gpasswd -a $USER tecfu-terminal-loadkeys
 fi
 
-# Install oh-my-bash (needs curl)
+# Install oh-my-bash on first run only. Its installer MOVES any existing
+# ~/.bashrc to a timestamped backup and writes its own template, so it must
+# not run once ~/.oh-my-bash exists, and loaders below must be written last
+# so they win even over a first-run clobber.
 if command -v curl >/dev/null 2>&1; then
-  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+  if [ ! -d "$HOME/.oh-my-bash" ]; then
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+  fi
 else
   echo "WARN: curl not found, skipping oh-my-bash install"
 fi
+
+# Loaders are written LAST: they always end up owning $HOME shell entry files.
+for i in "${LOADERS[@]}"; do
+  IFS=' ' read -ra OUT <<< "$i"
+  install_loader "${OUT[0]}" "${OUT[1]}"
+done
 
 WARN_MESSAGE="WARN: YOU MUST RESTART YOUR TERMINAL TO SEE CHANGES"
 echo -e "\033[0;33m$WARN_MESSAGE\033[0m"
