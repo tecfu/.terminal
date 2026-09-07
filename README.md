@@ -145,9 +145,12 @@ low 114, others unchanged).
 
 - Needs a truecolor (24-bit) terminal; falls back to garbage colors on
   256-color-only terminals (check with `./256colors2.pl`).
-- Colors are deterministic per hostname — same machine, same colors.
-- Hash collisions between similarly named machines can land on close hues;
-  saturation/lightness jitter (independent hash slices) keeps them apart.
+- Colors are deterministic per hostname — same machine, same colors. The seed
+  is md5 of the hostname (cksum fallback), so similarly named machines get
+  uncorrelated colors.
+- Near-hue collisions between machines can still happen by chance; a wide
+  saturation/value spread from independent hash slices keeps them visibly
+  distinct (bars differ in darkness and vividness, not just hue).
   Same font requirement as `powerline-multiline`.
 
 ### Troubleshooting

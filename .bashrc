@@ -134,8 +134,17 @@ __ps1_build_pml() {
 # battery state colors move from block background to light text colors.
 # Needs a truecolor (24-bit) terminal.
 __ps1_host_colors() {
-  local seed fr fg2 fb br bg2 bb
-  seed=$(cksum <<< "${HOSTNAME:-localhost}"); seed=${seed%% *}
+  local seed fr fg2 fb br bg2 bb h="${HOSTNAME:-localhost}"
+  # md5, not cksum/CRC: properly mixes, so similarly named machines get
+  # uncorrelated hues (cksum landed epyc4000d4u and base-ThinkPad-T480 19
+  # degrees apart). Fallbacks: BSD md5, then POSIX cksum.
+  if command -v md5sum >/dev/null 2>&1; then
+    seed=$((0x$(printf %s "$h" | md5sum | cut -c1-8)))
+  elif command -v md5 >/dev/null 2>&1; then
+    seed=$((0x$(printf %s "$h" | md5 -q | cut -c1-8)))
+  else
+    seed=$(cksum <<< "$h"); seed=${seed%% *}
+  fi
   read -r fr fg2 fb br bg2 bb < <(awk -v seed="$seed" '
     function hsv(h, s, v,  c, x, m, xx) {
       c = v*s; xx = (h/60)%2-1; if (xx < 0) xx = -xx; x = c*(1-xx); m = v-c
@@ -149,13 +158,17 @@ __ps1_host_colors() {
     }
     BEGIN {
       hue = seed % 360
-      # statusbar: medium-dark tint of the machine hue (jittered per host)
-      hsv(hue, .45 + (int(seed/35) % 3) * .05, .22 + (int(seed/35) % 4) * .02)
+      # statusbar: medium-dark tint of the machine hue. WIDE saturation/value
+      # spread from independent hash slices: machines whose hues land close
+      # still render visibly different (identity = hue + darkness + vividness).
+      hsv(hue, .38 + (int(seed/64) % 5) * .06, .20 + (int(seed/1024) % 5) * .03)
       br = cr; bg2 = cg; bb = cb
-      # text: light, desaturated version of the same hue; luminance-boosted
-      # until clearly readable on the dark tint
-      s = .35 + (int(seed/7) % 3) * .05
-      v = .72 + (seed % 4) * .04
+      # text: light, desaturated same-hue, luminance-boosted until readable.
+      # v grid aligned to the .04 step of the luminance loop (max .84) so the
+      # climb lands on v=1.00 exactly - never 1.02, which overflowed channels
+      # past 255.
+      s = .30 + (int(seed/4096) % 5) * .05
+      v = .72 + (int(seed/262144) % 4) * .04
       hsv(hue, s, v)
       while ((0.299*cr + 0.587*cg + 0.114*cb) < 165 && (v < 1 || s > .15)) {
         if (v < 1) v += 0.04; else s -= 0.05
