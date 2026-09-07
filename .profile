@@ -21,7 +21,7 @@ source ~/.terminal/profile-general.sh
 #################################
 
 source ~/.terminal/profile-aliases-public.sh
-source ~/.terminal/profile-aliases-private.sh
+[ -f ~/.terminal/profile-aliases-private.sh ] && source ~/.terminal/profile-aliases-private.sh
 
 #################################
 #
@@ -38,7 +38,7 @@ source ~/.terminal/profile-autocompletion.sh
 #################################
 
 source ~/.terminal/profile-env-public.sh
-source ~/.terminal/profile-env-private.sh
+[ -f ~/.terminal/profile-env-private.sh ] && source ~/.terminal/profile-env-private.sh
 
 #################################
 #
