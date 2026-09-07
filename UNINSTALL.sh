@@ -15,7 +15,6 @@
 SYMLINKS=()
 SYMLINKS+=("$HOME/.inputrc")
 SYMLINKS+=("$HOME/.alacritty.toml")
-SYMLINKS+=("$HOME/.scripts")
 
 # Shell entry files installed as loaders: remove only ours (marker check);
 # if a pre-dotfiles backup exists, restore it.
