@@ -48,3 +48,6 @@ command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 
 # keep world-writable (ow) dirs from getting a loud background color in ls
 LS_COLORS="$LS_COLORS:ow=103;30;01"
+
+# machine-specific config (untracked, never merged): ~/.bashrc.local
+[ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"

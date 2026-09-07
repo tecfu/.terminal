@@ -5,7 +5,7 @@ if [[ -f ~/.profile ]]; then
   source ~/.profile
 fi
 
-# Load interactive settings (oh-my-bash)
+# Load interactive settings
 if [[ -f ~/.bashrc && "${ENV_DISABLE_BASHRC}" != "true" ]]; then
   source ~/.bashrc
 fi

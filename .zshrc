@@ -26,3 +26,6 @@ precmd() { vcs_info }
 setopt prompt_subst
 PS1='%F{blue}%B%n@%m%b%f %F{yellow}%~%f${vcs_info_msg_0_}
 %F{green}%#%f '
+
+# machine-specific config (untracked, never merged): ~/.zshrc.local
+[ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"

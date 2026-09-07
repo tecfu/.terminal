@@ -60,3 +60,6 @@ elif [ "$(uname)" == "Linux" ]; then
     source ~/.terminal/profile-path-public.linux.sh
 fi
 
+# machine-specific config (untracked, never merged): ~/.profile.local
+[ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"
+
