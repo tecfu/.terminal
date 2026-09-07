@@ -8,7 +8,7 @@
   - .alacritty.yml
     - Keymappings for alacritty
   - .bashrc
-    - oh-my-bash config
+    - Prompt themes: `plain` (default), `powerline-multiline`, `powerline-multiline-host` — see "Prompt themes" below
   - custom.kmap
     - Remaps CAPS_LOCK to ESC in \*nix virtual terminal using `loadkeys`
   - .bash_completion.sh
@@ -91,6 +91,63 @@ https://github.com/tecfu/kmscon
 
 - Run the file ./256colors2.pl and check for tiled blocks that
   represent 256 colors in the output.
+
+## Prompt themes
+
+`.bashrc` ships two prompt themes, selected with `PROMPT_THEME`. Put it in
+`~/.bashrc.local` (machine-specific, sourced at the end of `.bashrc`), e.g.:
+
+```bash
+PROMPT_THEME=powerline-multiline
+```
+
+### `plain` (default)
+
+The builder at the top of `.bashrc` (`__ps1_build`). Single line:
+
+```
+user@host ~/path (git-branch *) [exit-status] [battery]
+$
+```
+
+Built on git's own `git-sh-prompt` — no framework, no special font required.
+
+### `powerline-multiline`
+
+A self-contained re-creation of the oh-my-bash theme of the same name
+(`__ps1_build_pml`). Two lines:
+
+```
+[venv][git][cwd]                ...right-aligned... [clock][battery][user]
+[failed exit status] ❯
+```
+
+- Git block color reflects repo state: clean 25, staged 30, unstaged 92,
+  dirty (both) 88; branch name or short SHA on detached HEAD.
+- Battery shows always on machines with a battery, with a lightning bolt
+  prefix while on AC power; colors turn amber at 25% and red at 5%.
+- Shows `user@host` only over SSH.
+- Requires a powerline/nerd font for the arrow separators (U+E0B0 / U+E0B2)
+  — see "Install Nerd Fonts" above. Without one you get hollow boxes.
+- `THEME_CLOCK_FORMAT` (a strftime string) changes the clock format;
+  default `%H:%M:%S`.
+
+### `powerline-multiline-host`
+
+Same layout as `powerline-multiline`, with a darkreader-style color scheme
+unique to each machine: a hash of the hostname picks a hue, the statusbar
+becomes a medium-dark tint of that hue, and all text becomes a light,
+desaturated version of the same hue — so text is always readable, whatever
+the hash picks. Git and battery state colors move from block background to
+light text colors (clean 117, staged 80, unstaged 141, dirty 203, battery
+low 114, others unchanged).
+
+- Needs a truecolor (24-bit) terminal; falls back to garbage colors on
+  256-color-only terminals (check with `./256colors2.pl`).
+- Colors are deterministic per hostname — same machine, same colors.
+- Hash collisions between similarly named machines can land on close hues;
+  saturation/lightness jitter (independent hash slices) keeps them apart.
+  Same font requirement as `powerline-multiline`.
 
 ### Troubleshooting
 
