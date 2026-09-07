@@ -8,7 +8,7 @@
   - .alacritty.yml
     - Keymappings for alacritty
   - .bashrc
-    - Prompt themes: `plain` (default), `powerline-multiline`, `powerline-multiline-host` — see "Prompt themes" below
+    - Prompt themes: `powerline-multiline-host` (default), `powerline-multiline`, `plain` — see "Prompt themes" below
   - custom.kmap
     - Remaps CAPS_LOCK to ESC in \*nix virtual terminal using `loadkeys`
   - .bash_completion.sh
@@ -94,14 +94,15 @@ https://github.com/tecfu/kmscon
 
 ## Prompt themes
 
-`.bashrc` ships two prompt themes, selected with `PROMPT_THEME`. Put it in
-`~/.bashrc.local` (machine-specific, sourced at the end of `.bashrc`), e.g.:
+`.bashrc` ships three prompt themes, selected with `PROMPT_THEME`. Default is
+`powerline-multiline-host`. Override per machine in `~/.bashrc.local`
+(machine-specific, sourced at the end of `.bashrc`), e.g.:
 
 ```bash
-PROMPT_THEME=powerline-multiline
+PROMPT_THEME=plain
 ```
 
-### `plain` (default)
+### `plain`
 
 The builder at the top of `.bashrc` (`__ps1_build`). Single line:
 
@@ -132,7 +133,7 @@ A self-contained re-creation of the oh-my-bash theme of the same name
 - `THEME_CLOCK_FORMAT` (a strftime string) changes the clock format;
   default `%H:%M:%S`.
 
-### `powerline-multiline-host`
+### `powerline-multiline-host` (default)
 
 Same layout as `powerline-multiline`, with a darkreader-style color scheme
 unique to each machine: a hash of the hostname picks a hue, the statusbar
