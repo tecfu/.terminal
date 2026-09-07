@@ -115,18 +115,6 @@ else
     sudo gpasswd -a $USER tecfu-terminal-loadkeys
 fi
 
-# Install oh-my-bash on first run only. Its installer MOVES any existing
-# ~/.bashrc to a timestamped backup and writes its own template, so it must
-# not run once ~/.oh-my-bash exists, and loaders below must be written last
-# so they win even over a first-run clobber.
-if command -v curl >/dev/null 2>&1; then
-  if [ ! -d "$HOME/.oh-my-bash" ]; then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-  fi
-else
-  echo "WARN: curl not found, skipping oh-my-bash install"
-fi
-
 # Loaders are written LAST: they always end up owning $HOME shell entry files.
 for i in "${LOADERS[@]}"; do
   IFS=' ' read -ra OUT <<< "$i"
