@@ -82,4 +82,4 @@ complete -D -F _fzf_definitive_tab
 
 ## npm autocompletion
 ## depends on: `npm completion > ~/.npm-completion.sh`
-source ~/.npm-completion.sh
+[ -f ~/.npm-completion.sh ] && source ~/.npm-completion.sh
