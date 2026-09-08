@@ -4,7 +4,7 @@ case $- in
     *) return;;
 esac
 
-# ---- prompt theme 'plain': plain bash + git's own git-sh-prompt (no framework) ----
+# ---- prompt theme 'plain' (default): plain bash + git's own git-sh-prompt (no framework) ----
 for _git_prompt in /usr/lib/git-core/git-sh-prompt \
                    /usr/local/share/git-core/git-prompt.sh \
                    /opt/homebrew/share/git-core/git-prompt.sh; do
@@ -42,7 +42,7 @@ __ps1_build() {
   fi
 }
 
-# 'plain' is the builder above.
+# 'plain' (default) is the builder above.
 # ---- prompt theme: powerline-multiline (from oh-my-bash) ----
 printf -v _PML_SEP_L '\ue0b0'; printf -v _PML_SEP_R '\ue0b2'  # powerline arrows
 # Line 1: [venv][git][cwd] ...right-aligned... [clock][battery][user]
@@ -178,11 +178,9 @@ LS_COLORS="$LS_COLORS:ow=103;30;01"
 # machine-specific config (untracked, never merged): ~/.bashrc.local
 [ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
 
-# prompt theme: 'powerline-multiline-host' (default, hostname-hash colored
-# statusbar), 'powerline-multiline', or 'plain'. Set PROMPT_THEME in
-# ~/.bashrc.local to override the default per machine.
-case ${PROMPT_THEME:-powerline-multiline-host} in
-  plain) ;;
+# prompt theme: 'plain' (default), 'powerline-multiline', or
+# 'powerline-multiline-host' (hostname-hash colored statusbar)
+case ${PROMPT_THEME:-} in
   powerline-multiline) PROMPT_COMMAND=__ps1_build_pml ;;
   powerline-multiline-host)
     PROMPT_COMMAND=__ps1_build_pml
