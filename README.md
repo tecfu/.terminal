@@ -8,7 +8,7 @@
   - .alacritty.yml
     - Keymappings for alacritty
   - .bashrc
-    - Prompt themes: `plain` (default), `powerline-multiline`, `powerline-multiline-host` — see "Prompt themes" below
+    - Prompt: starship (binary + `starship.toml`) — see "Prompt (starship)" below
   - custom.kmap
     - Remaps CAPS_LOCK to ESC in \*nix virtual terminal using `loadkeys`
   - .bash_completion.sh
@@ -92,69 +92,27 @@ https://github.com/tecfu/kmscon
 - Run the file ./256colors2.pl and check for tiled blocks that
   represent 256 colors in the output.
 
-## Prompt themes
+## Prompt (starship)
 
-`.bashrc` ships two prompt themes, selected with `PROMPT_THEME`. Put it in
-`~/.bashrc.local` (machine-specific, sourced at the end of `.bashrc`), e.g.:
+The prompt is [starship](https://starship.rs): a static binary plus one
+declarative config, `starship.toml` (symlinked to `~/.config/starship.toml`
+by INSTALL.sh). It renders the prompt and handles window-width truncation
+itself. Nothing generates or rewrites shell startup files, so upgrades can't
+clobber `~/.bashrc` the way oh-my-bash did. Without the binary you get
+bash's default prompt.
 
-```bash
-PROMPT_THEME=powerline-multiline
-```
-
-### `plain` (default)
-
-The builder at the top of `.bashrc` (`__ps1_build`). Single line:
+Two lines:
 
 ```
-user@host ~/path (git-branch *) [exit-status] [battery]
-$
+venv git ~/path            ...right-aligned... clock battery user@host
+❯
 ```
 
-Built on git's own `git-sh-prompt` — no framework, no special font required.
-
-### `powerline-multiline`
-
-A self-contained re-creation of the oh-my-bash theme of the same name
-(`__ps1_build_pml`). Two lines:
-
-```
-[venv][git][cwd]                ...right-aligned... [clock][battery][user]
-[failed exit status] ❯
-```
-
-- Git block color reflects repo state: clean 25, staged 30, unstaged 92,
-  dirty (both) 88; branch name or short SHA on detached HEAD.
-- Battery shows always on machines with a battery, with a lightning bolt
-  prefix while on AC power; colors turn amber at 25% and red at 5%.
-- Shows `user@host` only over SSH.
-- Responsive to the terminal width: on a narrow window right-side segments are
-  shed in order (clock, then battery, then user) and a long cwd keeps only its
-  tail (`…/structure/that/keeps/going/on`), so the two sides never overlap.
-  The prompt re-renders when bash prints the next one (after `Enter`/a command)
-  — resizing while idle at the prompt redraws nothing until then; bash cannot
-  re-expand a displayed prompt (zsh's live `zle reset-prompt` has no bash
-  equivalent: a WINCH trap fires, but readline repaints the stale expansion).
-- Requires a powerline/nerd font for the arrow separators (U+E0B0 / U+E0B2)
-  — see "Install Nerd Fonts" above. Without one you get hollow boxes.
-- `THEME_CLOCK_FORMAT` (a strftime string) changes the clock format;
-  default `%H:%M:%S`.
-
-### `powerline-multiline-host`
-
-Same layout as `powerline-multiline`, with a darkreader-style color scheme
-unique to each machine: a hash of the hostname picks a hue, the statusbar
-becomes a medium-dark tint of that hue, and all text becomes a light,
-desaturated version of the same hue — so text is always readable, whatever
-the hash picks. Git and battery state colors move from block background to
-light text colors (clean 117, staged 80, unstaged 141, dirty 203, battery
-low 114, others unchanged).
-
-- Needs a truecolor (24-bit) terminal; falls back to garbage colors on
-  256-color-only terminals (check with `./256colors2.pl`).
-- Colors are deterministic per hostname — same machine, same colors.
-- Hash collisions between similarly named machines can land on close hues;
-  saturation/lightness jitter (independent hash slices) keeps them apart.
-  Same font requirement as `powerline-multiline`.
+- `❯` turns red after a failed command.
+- `user@host` shows only over SSH.
+- Battery shows on machines with one; amber at 25%, red at 5%.
+- Per-machine tweaks: set `STARSHIP_CONFIG` in `~/.bashrc.local`, or replace
+  the `~/.config/starship.toml` symlink with a real file.
 
 ### Troubleshooting
 

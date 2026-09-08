@@ -1,0 +1,47 @@
+# Starship prompt — tracked in ~/.terminal; INSTALL.sh symlinks it to
+# ~/.config/starship.toml. Docs: https://starship.rs/config/
+# Per-machine overrides: set STARSHIP_CONFIG in ~/.bashrc.local, or replace
+# the ~/.config/starship.toml symlink with a real file.
+
+add_newline = false
+
+# Line 1: venv / git / cwd left, clock / battery / user@host right-aligned.
+# Line 2: ❯ prompt char (red after a failed command).
+format = "$conda$python$git_branch$git_status$directory$line_break$character"
+right_format = "$time$battery$username$hostname"
+
+[conda]
+format = "([❲c❳ $environment]($style) )"
+
+[python]
+format = "([❲p❳ $virtualenv]($style) )"
+
+[git_branch]
+format = "[$branch]($style) "
+
+[git_status]
+format = "[$all_status$ahead_behind]($style) "
+
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+format = "[$time]($style) "
+
+# First matching rule wins, so the lowest threshold goes first.
+[[battery.display]]
+threshold = 5
+style = "bold red"
+
+[[battery.display]]
+threshold = 25
+style = "bold yellow"
+
+[username]
+format = "[$user]($style) "
+
+[hostname]
+format = "[$hostname]($style) "  # default ssh_only = true
