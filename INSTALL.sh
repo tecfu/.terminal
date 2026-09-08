@@ -17,7 +17,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 SYMLINKS=()
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.alacritty.toml $HOME/.alacritty.toml")
-SYMLINKS+=("$DIR/starship.toml $HOME/.config/starship.toml")
 
 # Shell entry files that app installers mutate (nvm, cargo, fzf, oh-my-bash,
 # bash-completion). These must NOT be symlinks into this checkout: apps append
@@ -68,18 +67,6 @@ if [ ${machine} = MinGw ]; then
 fi
 
 if [ ${machine} = Linux ] || [ ${machine} = Mac ]; then
-  # Prompt: starship (https://starship.rs) — static binary, config in this
-  # checkout is symlinked below to ~/.config/starship.toml.
-  if command -v starship &> /dev/null; then
-    echo "INFO: starship already installed: $(command -v starship)"
-  else
-    if ! command -v curl &> /dev/null; then
-      sudo apt-get install -y curl
-    fi
-    echo "INFO: Installing starship prompt..."
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes
-  fi
-
   # Install the bundled Nerd Font required by .alacritty.toml
   FONT_SRC="$DIR/../.vim/fonts/JetBrains Mono Regular Nerd Font Complete.ttf"
   if [ -f "$FONT_SRC" ]; then
@@ -100,7 +87,6 @@ if [ ${machine} = Linux ] || [ ${machine} = Mac ]; then
   fi
 fi
 
-mkdir -p "$HOME/.config"
 for i in "${SYMLINKS[@]}"; do
   IFS=' ' read -ra OUT <<< "$i"
   # ${OUT[1]} is path config file should be at
@@ -127,12 +113,6 @@ else
     sudo chgrp tecfu-terminal-loadkeys /usr/bin/loadkeys
     sudo chmod 4750 /usr/bin/loadkeys
     sudo gpasswd -a $USER tecfu-terminal-loadkeys
-fi
-
-# Install oh-my-bash (prompt framework; loaded by the tracked .bashrc).
-# Skipped when already present so re-runs stay idempotent and offline.
-if [ ! -d "$HOME/.oh-my-bash" ]; then
-  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 fi
 
 # Loaders are written LAST: they always end up owning $HOME shell entry files.
