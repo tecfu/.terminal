@@ -127,6 +127,9 @@ A self-contained re-creation of the oh-my-bash theme of the same name
 - Battery shows always on machines with a battery, with a lightning bolt
   prefix while on AC power; colors turn amber at 25% and red at 5%.
 - Shows `user@host` only over SSH.
+- Responsive to the terminal width: on a narrow window right-side segments are
+  shed in order (clock, then battery, then user) and a long cwd keeps only its
+  tail (`…/structure/that/keeps/going/on`), so the two sides never overlap.
 - Requires a powerline/nerd font for the arrow separators (U+E0B0 / U+E0B2)
   — see "Install Nerd Fonts" above. Without one you get hollow boxes.
 - `THEME_CLOCK_FORMAT` (a strftime string) changes the clock format;

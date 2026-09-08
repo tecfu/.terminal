@@ -44,9 +44,12 @@ __ps1_build() {
 
 # 'plain' (default) is the builder above.
 # ---- prompt theme: powerline-multiline (from oh-my-bash) ----
+shopt -s checkwinsize  # refresh COLUMNS after each command so the prompt tracks resizes
 printf -v _PML_SEP_L '\ue0b0'; printf -v _PML_SEP_R '\ue0b2'  # powerline arrows
 # Line 1: [venv][git][cwd] ...right-aligned... [clock][battery][user]
 # Line 2: failed-status (red) + prompt char
+# Responsive to the window width: right segments are shed in build order
+# (clock, then battery, then user) and the cwd keeps only its tail when tight.
 # Selected via PROMPT_THEME=powerline-multiline (see bottom of file);
 # powerline-multiline-host reuses this builder with hostname-derived colors.
 _pml_lseg() {  # <fg-color> <bg-color> <text> -> appends a left block to $left ($last = prev bg);
@@ -55,22 +58,19 @@ _pml_lseg() {  # <fg-color> <bg-color> <text> -> appends a left block to $left (
     left+="\001\e[0;38;${last};48;${2}m\002${_PML_SEP_L}"
   fi
   left+="\001\e[38;${1};48;${2}m\002 $3 \001\e[0m\002"
+  llen=$((llen + ${#3} + 3))  # visible width: arrow + " text "
   last=$2
 }
-_pml_rseg() {  # <fg-color> <bg-color> <text> -> appends a right block to $right, tracks visible width
-  if [ -n "$rlast" ]; then
-    right+="\001\e[0;38;${2};48;${rlast}m\002${_PML_SEP_R}"
-  else
-    right+="\001\e[0;38;${2}m\002${_PML_SEP_R}"
-  fi
-  right+="\001\e[38;${1};48;${2}m\002 $3 \001\e[0m\002"
+_pml_rseg() {  # <fg-color> <bg-color> <text> -> queues a right block in $rf/$rb/$rt;
+               # rendered after all blocks exist so narrow windows can shed some
+  rf+=("$1"); rb+=("$2"); rt+=("$3")
   rlen=$((rlen + ${#3} + 3))
-  rlast=$2
 }
 # colors from the original theme: scm clean 25 / dirty 88 / staged 30 / unstaged 92,
 # venv 35, cwd+clock 240, battery 70/208/160, user 32, last status 196
 __ps1_build_pml() {
-  local s=$? left="" last="" right="" rlast="" rlen=0 b st d cap="" ac="" bc staged unstaged
+  local s=$? left="" last="" right="" rlast="" rlen=0 llen=0 b st d cap="" ac="" bc staged unstaged
+  local rf=() rb=() rt=() cols="${COLUMNS:-80}" cwd maxcwd drop i
   local f="${_PML_HOST_FG:-39}" cbg="${_PML_HOST_BG:-}"
   local c_venv="${cbg:-5;35}" c_cwd="${cbg:-5;240}" c_clock="${cbg:-5;240}" c_user="${cbg:-5;32}"
 
@@ -97,7 +97,12 @@ __ps1_build_pml() {
     fi
   fi
 
-  _pml_lseg "$f" "$c_cwd" "${PWD/#$HOME/\~}"
+  cwd="${PWD/#$HOME/\~}"
+  maxcwd=$(( cols - 4 - llen ))  # room left after venv/git segments + closing arrow
+  if (( ${#cwd} > maxcwd && maxcwd > 1 )); then
+    cwd="…${cwd: -$((maxcwd - 1))}"  # keep the tail; -1 makes room for the ellipsis
+  fi
+  _pml_lseg "$f" "$c_cwd" "$cwd"
   left+="\001\e[0;38;${last}m\002${_PML_SEP_L}\001\e[0m\002"
 
   _pml_rseg "$f" "$c_clock" "$(date +"${THEME_CLOCK_FORMAT:-%H:%M:%S}")"
@@ -122,9 +127,27 @@ __ps1_build_pml() {
     _pml_rseg "$f" "$c_user" "$USER"
   fi
 
+  # responsive: shed right segments in build order (clock, then battery, then
+  # user) until left + right fits, then render the survivors (first survivor
+  # gets the cap arrow)
+  drop=0
+  while (( drop < ${#rt[@]} && llen + rlen > cols - 1 )); do
+    (( rlen -= ${#rt[drop]} + 3 ))
+    (( drop++ ))
+  done
+  for (( i=drop; i<${#rt[@]}; i++ )); do
+    if [ -n "$rlast" ]; then
+      right+="\001\e[0;38;${rb[i]};48;${rlast}m\002${_PML_SEP_R}"
+    else
+      right+="\001\e[0;38;${rb[i]}m\002${_PML_SEP_R}"
+    fi
+    right+="\001\e[38;${rf[i]};48;${rb[i]}m\002 ${rt[i]} \001\e[0m\002"
+    rlast=${rb[i]}
+  done
+
   bc=""
   [ "$s" -ne 0 ] && bc="\001\e[0;38;5;196m\002 $s \001\e[0m\002"
-  PS1="$left\001\e[500C\002\001\e[${rlen}D\002$right\n${bc}❯ "
+  PS1="$left\001\e[999C\002\001\e[${rlen}D\002$right\n${bc}❯ "
 }
 
 # ---- prompt theme: powerline-multiline-host ----
