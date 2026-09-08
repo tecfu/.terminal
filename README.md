@@ -130,6 +130,10 @@ A self-contained re-creation of the oh-my-bash theme of the same name
 - Responsive to the terminal width: on a narrow window right-side segments are
   shed in order (clock, then battery, then user) and a long cwd keeps only its
   tail (`…/structure/that/keeps/going/on`), so the two sides never overlap.
+  The prompt re-renders when bash prints the next one (after `Enter`/a command)
+  — resizing while idle at the prompt redraws nothing until then; bash cannot
+  re-expand a displayed prompt (zsh's live `zle reset-prompt` has no bash
+  equivalent: a WINCH trap fires, but readline repaints the stale expansion).
 - Requires a powerline/nerd font for the arrow separators (U+E0B0 / U+E0B2)
   — see "Install Nerd Fonts" above. Without one you get hollow boxes.
 - `THEME_CLOCK_FORMAT` (a strftime string) changes the clock format;
