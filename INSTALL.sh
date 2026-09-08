@@ -129,6 +129,12 @@ else
     sudo gpasswd -a $USER tecfu-terminal-loadkeys
 fi
 
+# Install oh-my-bash (prompt framework; loaded by the tracked .bashrc).
+# Skipped when already present so re-runs stay idempotent and offline.
+if [ ! -d "$HOME/.oh-my-bash" ]; then
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+fi
+
 # Loaders are written LAST: they always end up owning $HOME shell entry files.
 for i in "${LOADERS[@]}"; do
   IFS=' ' read -ra OUT <<< "$i"
