@@ -21,6 +21,12 @@ if [ -f ~/.git-completion.bash ]; then
   source ~/.git-completion.bash
 fi
 
+# System bash-completion: registers per-command completions (ssh, cargo, ...).
+# Docker gets registered eagerly: bash-completion >= 2.12 loads lazily via its
+# own -D handler, which the fzf tab handler below overwrites.
+[ -f /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+command -v docker >/dev/null && eval "$(docker completion bash 2>/dev/null)"
+
 # Terraform completion
 complete -C /usr/bin/terraform terraform
 
@@ -70,14 +76,18 @@ _fzf_definitive_tab() {
     fi
 
     # If the line is NOT empty, use the standard bash-completion handler.
-    # We check if the _command function exists to be safe.
-    if declare -f _command > /dev/null; then
+    # bash-completion >= 2.12 renamed _command to _comp_command.
+    if declare -F _command >/dev/null; then
         _command
+    elif declare -F _comp_command >/dev/null; then
+        _comp_command
     fi
 }
 
 # Tell Bash to use our new function as the default completion handler.
-complete -D -F _fzf_definitive_tab
+# -o default: fall back to readline filename completion when the handler
+# produces nothing (e.g. bash-completion not loaded -> _command undefined).
+complete -D -F _fzf_definitive_tab -o default -o filenames
 # --- End of Definitive fzf Completion ---
 
 ## npm autocompletion
