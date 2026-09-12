@@ -121,7 +121,7 @@ __ps1_build_pml() {
       _pml_rseg 39 "5;$bc" "$ac$cap%"
     fi
   fi
-  if [ -n "${SSH_CLIENT:-}" ]; then
+  if [ -n "${SSH_CLIENT:-}" ] || [ -n "${_PML_SHOW_HOST:-}" ]; then
     _pml_rseg "$f" "$c_user" " $USER@${HOSTNAME%%.*}"
   else
     _pml_rseg "$f" "$c_user" "$USER"
@@ -155,6 +155,7 @@ __ps1_build_pml() {
 # the statusbar becomes a medium-dark tint of that hue and the text a light,
 # desaturated version of the same hue (so text is always readable). Git and
 # battery state colors move from block background to light text colors.
+# The user segment always shows user@host (via the _PML_SHOW_HOST knob).
 # Needs a truecolor (24-bit) terminal.
 __ps1_host_colors() {
   local seed fr fg2 fb br bg2 bb
@@ -202,10 +203,11 @@ LS_COLORS="$LS_COLORS:ow=103;30;01"
 [ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
 
 # prompt theme: 'plain' (default), 'powerline-multiline', or
-# 'powerline-multiline-host' (hostname-hash colored statusbar)
+# 'powerline-multiline-host' (hostname-hash colored statusbar, user@host always shown)
 case ${PROMPT_THEME:-} in
   powerline-multiline) PROMPT_COMMAND=__ps1_build_pml ;;
   powerline-multiline-host)
     PROMPT_COMMAND=__ps1_build_pml
+    _PML_SHOW_HOST=1
     __ps1_host_colors ;;
 esac

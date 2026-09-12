@@ -147,7 +147,8 @@ becomes a medium-dark tint of that hue, and all text becomes a light,
 desaturated version of the same hue — so text is always readable, whatever
 the hash picks. Git and battery state colors move from block background to
 light text colors (clean 117, staged 80, unstaged 141, dirty 203, battery
-low 114, others unchanged).
+low 114, others unchanged). The user segment always shows `user@host`
+(plain `powerline-multiline` only does that over SSH).
 
 - Needs a truecolor (24-bit) terminal; falls back to garbage colors on
   256-color-only terminals (check with `./256colors2.pl`).
