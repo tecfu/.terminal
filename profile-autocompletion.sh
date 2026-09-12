@@ -67,7 +67,7 @@ _fzf_definitive_tab() {
         # Try to use the officially loaded fzf completion function first.
         if declare -f _fzf_complete > /dev/null; then
             _fzf_complete
-        else
+        elif command -v fzf >/dev/null; then
             # As a robust fallback, call the fzf program directly.
             # This works even if the helper functions are not in scope.
             COMPREPLY=($(fzf --height 40% --border --reverse))
@@ -75,12 +75,14 @@ _fzf_definitive_tab() {
         return 0
     fi
 
-    # If the line is NOT empty, use the standard bash-completion handler.
-    # bash-completion >= 2.12 renamed _command to _comp_command.
-    if declare -F _command >/dev/null; then
-        _command
-    elif declare -F _comp_command >/dev/null; then
-        _comp_command
+    # If the line is NOT empty, delegate to bash-completion's lazy loader
+    # (>= 2.12). It sources the command's completion file if needed and
+    # returns 124, which tells bash to retry completion so the freshly
+    # loaded per-command spec handles the word. (_command/_comp_command are
+    # wrapper-command completers like nohup/exec's — the wrong delegate here.)
+    if declare -F _comp_complete_load >/dev/null; then
+        _comp_complete_load "${COMP_WORDS[0]}"
+        return
     fi
 }
 

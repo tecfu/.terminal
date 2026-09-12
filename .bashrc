@@ -196,6 +196,17 @@ __ps1_host_colors() {
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 [ -f "$HOME/.terminal/bashmarks.sh" ] && . "$HOME/.terminal/bashmarks.sh"
 
+# ---- profile files formerly loaded by oh-my-bash ----
+# autocompletion last: its -D handler must override bash-completion's lazy loader
+for _f in profile-general.sh \
+  "profile-path-public.$(uname | tr '[:upper:]' '[:lower:]').sh" \
+  profile-env-public.sh profile-aliases-public.sh \
+  profile-virtualterminal-keymappings.sh profile-env-private.sh \
+  profile-autocompletion.sh; do
+  [ -f "$HOME/.terminal/$_f" ] && . "$HOME/.terminal/$_f"
+done
+unset _f
+
 # keep world-writable (ow) dirs from getting a loud background color in ls
 LS_COLORS="$LS_COLORS:ow=103;30;01"
 
