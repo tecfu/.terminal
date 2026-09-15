@@ -17,6 +17,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 SYMLINKS=()
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.alacritty.toml $HOME/.alacritty.toml")
+SYMLINKS+=("$DIR/scripts/pi-open.sh $HOME/.local/bin/pi-open")
 
 # Shell entry files that app installers mutate (nvm, cargo, fzf, oh-my-bash,
 # bash-completion). These must NOT be symlinks into this checkout: apps append
@@ -105,6 +106,13 @@ for i in "${SYMLINKS[@]}"; do
 done
 
 if which Xorg &> /dev/null; then
+    # Desktop with a browser: enable the URL-opener listener that ssh RemoteForward
+    # tunnels point at (remote pi/MCP auth URLs get opened here via BROWSER=pi-open).
+    mkdir -p "$HOME/.config/systemd/user"
+    cp "$DIR/scripts/remote-url-opener.service" "$HOME/.config/systemd/user/"
+    systemctl --user daemon-reload 2>/dev/null
+    systemctl --user enable --now remote-url-opener.service 2>/dev/null || true
+else
     echo "INFO: X Window System is installed, skipping loadkeys group add for ESC remap"
 else
     echo "INFO: X Window System is not installed."

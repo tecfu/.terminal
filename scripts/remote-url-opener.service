@@ -1,0 +1,9 @@
+[Unit]
+Description=pi-over-ssh remote URL opener listener (port 15147)
+
+[Service]
+ExecStart=/usr/bin/python3 %h/dotfiles/.terminal/scripts/remote-url-opener.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

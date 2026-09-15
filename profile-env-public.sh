@@ -19,6 +19,12 @@ export VISUAL='nvim'
 # prints URLs as plain text. Alacritty itself supports OSC 8 (Ctrl+click to open).
 export PI_HYPERLINKS=1
 
+# pi/MCP auth on headless ssh hosts: pi opens auth URLs via xdg-open, which has no
+# browser there. BROWSER routes them through the ssh RemoteForward tunnel (port
+# 15147) to remote-url-opener on the desktop. Falls back to xdg-open when the
+# tunnel is down, so local/Graphical sessions are unaffected.
+export BROWSER="$HOME/.terminal/scripts/pi-open.sh %s"
+
 # Add user's private bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
