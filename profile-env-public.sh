@@ -14,6 +14,11 @@ export HISTCONTROL=ignoreboth
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+# pi (coding agent): force OSC 8 hyperlink rendering. Alacritty exports TERM=alacritty
+# but not TERM_PROGRAM, so pi's terminal detection falls through to "unknown" and
+# prints URLs as plain text. Alacritty itself supports OSC 8 (Ctrl+click to open).
+export PI_HYPERLINKS=1
+
 # Add user's private bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
