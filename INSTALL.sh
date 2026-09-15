@@ -18,6 +18,8 @@ SYMLINKS=()
 SYMLINKS+=("$DIR/.inputrc $HOME/.inputrc")
 SYMLINKS+=("$DIR/.alacritty.toml $HOME/.alacritty.toml")
 SYMLINKS+=("$DIR/scripts/pi-open.sh $HOME/.local/bin/pi-open")
+# headless hosts: route http(s) URLs to the desktop browser over the ssh tunnel
+SYMLINKS+=("$DIR/scripts/xdg-open-remote.sh $HOME/.local/bin/xdg-open")
 
 # Shell entry files that app installers mutate (nvm, cargo, fzf, oh-my-bash,
 # bash-completion). These must NOT be symlinks into this checkout: apps append
