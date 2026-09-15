@@ -25,6 +25,14 @@ export PI_HYPERLINKS=1
 # tunnel is down, so local/Graphical sessions are unaffected.
 export BROWSER="$HOME/.terminal/scripts/pi-open.sh %s"
 
+# xdg-open's DE sniffing finds a GNOME session bus even over plain ssh (the
+# user's console session owns one) and then hardcodes `gio open`, which fails
+# headless and never consults $BROWSER. Declaring a generic DE makes xdg-open
+# honor BROWSER. Only set when there is no display, so desktops are untouched.
+if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+    export XDG_CURRENT_DESKTOP="X-Generic"
+fi
+
 # Add user's private bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
