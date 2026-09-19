@@ -101,7 +101,15 @@ complete -D -F _fzf_definitive_tab -o default -o filenames
 if command -v tailscale >/dev/null 2>&1; then
   _ssh_tailscale() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    COMPREPLY=($(compgen -W "$(tailscale status 2>/dev/null | awk '!/^#/ {print $2}')" -- "$cur"))
+    local hosts="$(tailscale status 2>/dev/null | awk '!/^#/ {print $2}')"
+    if declare -F _known_hosts_real >/dev/null; then
+      # bash-completion present: merge with ~/.ssh/config / known_hosts entries
+      COMPREPLY=()
+      _known_hosts_real -a "$cur"
+      COMPREPLY=($(compgen -W "${COMPREPLY[*]} $hosts" -- "$cur"))
+    else
+      COMPREPLY=($(compgen -W "$hosts" -- "$cur"))
+    fi
   }
   complete -F _ssh_tailscale ssh
 fi
