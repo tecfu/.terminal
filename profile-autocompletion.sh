@@ -102,14 +102,11 @@ if command -v tailscale >/dev/null 2>&1; then
   _ssh_tailscale() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
     local hosts="$(tailscale status 2>/dev/null | awk '!/^#/ {print $2}')"
-    if declare -F _known_hosts_real >/dev/null; then
-      # bash-completion present: merge with ~/.ssh/config / known_hosts entries
-      COMPREPLY=()
-      _known_hosts_real -a "$cur"
-      COMPREPLY=($(compgen -W "${COMPREPLY[*]} $hosts" -- "$cur"))
-    else
-      COMPREPLY=($(compgen -W "$hosts" -- "$cur"))
-    fi
+    # merge tailscale peers with Host aliases from ~/.ssh/config
+    # (plain awk, not _known_hosts_real: that also drags in known_hosts IPs,
+    # IPv6 noise like ::1, and case-duplicates)
+    local cfg="$(awk 'tolower($1)=="host" {for(i=2;i<=NF;i++) if($i !~ /[*?]/) print $i}' ~/.ssh/config 2>/dev/null)"
+    COMPREPLY=($(compgen -W "$hosts $cfg" -- "$cur"))
   }
   complete -F _ssh_tailscale ssh
 fi
