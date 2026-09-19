@@ -95,3 +95,13 @@ complete -D -F _fzf_definitive_tab -o default -o filenames
 ## npm autocompletion
 ## depends on: `npm completion > ~/.npm-completion.sh`
 [ -f ~/.npm-completion.sh ] && source ~/.npm-completion.sh
+
+## ssh tab-completion from tailscale hostnames
+## depends on: tailscale
+if command -v tailscale >/dev/null 2>&1; then
+  _ssh_tailscale() {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=($(compgen -W "$(tailscale status 2>/dev/null | awk '{print $2}' | grep -v -- '---')" -- "$cur"))
+  }
+  complete -F _ssh_tailscale ssh
+fi
