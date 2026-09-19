@@ -101,11 +101,21 @@ complete -D -F _fzf_definitive_tab -o default -o filenames
 if command -v tailscale >/dev/null 2>&1; then
   _ssh_tailscale() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local hosts="$(tailscale status 2>/dev/null | awk '!/^#/ {print $2}')"
+    local cache="${XDG_CACHE_HOME:-$HOME/.cache}/ssh-hosts" hosts cfg
+    # tailscale status can block indefinitely while tailscaled is wedged (control
+    # map timeouts) -> cap at 1s and fall back to the last good host list.
+    # ponytail: 60s TTL cache, single-user, stale-on-failure is fine here.
+    if (( SECONDS - ${_SSH_HOSTS_TS:--999} >= 60 )); then
+      local fresh
+      fresh="$(timeout 1 tailscale status 2>/dev/null | awk '!/^#/ {print $2}')"
+      _SSH_HOSTS_TS=$SECONDS
+      [[ -n $fresh ]] && printf '%s\n' "$fresh" > "$cache"
+    fi
+    hosts="$(cat "$cache" 2>/dev/null)"
     # merge tailscale peers with Host aliases from ~/.ssh/config
     # (plain awk, not _known_hosts_real: that also drags in known_hosts IPs,
     # IPv6 noise like ::1, and case-duplicates)
-    local cfg="$(awk 'tolower($1)=="host" {for(i=2;i<=NF;i++) if($i !~ /[*?]/) print $i}' ~/.ssh/config 2>/dev/null)"
+    cfg="$(awk 'tolower($1)=="host" {for(i=2;i<=NF;i++) if($i !~ /[*?]/) print $i}' ~/.ssh/config 2>/dev/null)"
     COMPREPLY=($(compgen -W "$hosts $cfg" -- "$cur"))
   }
   complete -F _ssh_tailscale ssh
