@@ -115,8 +115,6 @@ if which Xorg &> /dev/null; then
     systemctl --user daemon-reload 2>/dev/null
     systemctl --user enable --now remote-url-opener.service 2>/dev/null || true
 else
-    echo "INFO: X Window System is installed, skipping loadkeys group add for ESC remap"
-else
     echo "INFO: X Window System is not installed."
     echo "INFO: Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
     sudo groupadd tecfu-terminal-loadkeys
