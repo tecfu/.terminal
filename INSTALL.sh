@@ -114,6 +114,7 @@ if which Xorg &> /dev/null; then
     cp "$DIR/scripts/remote-url-opener.service" "$HOME/.config/systemd/user/"
     systemctl --user daemon-reload 2>/dev/null
     systemctl --user enable --now remote-url-opener.service 2>/dev/null || true
+    echo "INFO: X Window System is installed, skipping loadkeys group add for ESC remap"
 else
     echo "INFO: X Window System is not installed."
     echo "INFO: Adding tecfu-terminal-loadkeys group for CAPS->ESC mapping in /dev/ttyX..."
