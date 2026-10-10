@@ -40,8 +40,8 @@ bindings = [
   # kitty protocol with alacritty, which otherwise degrades this to plain \r
   { key = "Return", mods = "Shift", chars = "\u001b[13;2u" },
   { key = "K", mods = "Control|Shift", action = "ScrollLineUp" },
-  { key = "J", mods = "Control", action = "ScrollPageDown", mode = "~AppCursor|~AppKeypad" },
-  { key = "K", mods = "Control", action = "ScrollPageUp", mode = "~AppCursor|~AppKeypad" },
+  { key = "J", mods = "Control", action = "ScrollPageDown", mode = "~AppCursor|~AppKeypad|~Alt" },
+  { key = "K", mods = "Control", action = "ScrollPageUp", mode = "~AppCursor|~AppKeypad|~Alt" },
   { key = "A", mode = "Vi|~Search", action = "First" },
   { key = "Semicolon", mode = "Vi|~Search", action = "Last" },
   { key = "Y", mode = "Vi|~Search", action = "Copy" },
