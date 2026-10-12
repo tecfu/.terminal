@@ -10,9 +10,10 @@
 
 conditional_asdf() {
   if [ ! -f "$PWD/.tool-versions" ]; then
-    export PATH=`echo $PATH | sed -E 's/(.*)\.asdf([^:]*)://'`
+    pathstrip ".asdf"
   else
-    export PATH="${HOME}/.asdf/shims:${HOME}/.asdf/bin:${PATH}"
+    pathmunge "${HOME}/.asdf/shims" pre
+    pathmunge "${HOME}/.asdf/bin" pre
   fi
 }
 
@@ -25,4 +26,4 @@ PROMPT_COMMAND="conditional_asdf; $PROMPT_COMMAND"
 #
 #################################
 
-export PATH=$PATH:/opt/homebrew/opt/libpq/bin
+pathmunge /opt/homebrew/opt/libpq/bin post

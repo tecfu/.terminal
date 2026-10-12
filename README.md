@@ -31,7 +31,7 @@
   - profile-env.sh
     - Environment variables
   - profile-general.sh
-    - General configuration
+    - General configuration, plus the `pathmunge`/`pathunmunge`/`pathstrip`/`path_dedup` PATH helpers
   - profile-vi-mode.sh
     - Puts terminal in vi mode key mappings
     - Adds some vim key mappings
@@ -91,6 +91,28 @@ https://github.com/tecfu/kmscon
 
 - Run the file ./256colors2.pl and check for tiled blocks that
   represent 256 colors in the output.
+
+## PATH hygiene
+
+Profile files are read twice in a login shell (`.profile`, then again by the
+loader loop in `.bashrc`) and again by every nested bash, so a bare
+`export PATH="$dir:$PATH"` leaves several copies of `$dir` behind and the PATH
+grows without bound in long-lived sessions. Use the helpers from
+`profile-general.sh` instead:
+
+```sh
+pathmunge "$HOME/.tool/bin" pre     # win over a system copy (default position)
+pathmunge /opt/tool/bin post         # fall back after the system copy
+pathunmunge "$HOME/.gone/bin"        # drop that exact entry
+pathstrip ".asdf"                    # drop entries matching a substring
+```
+
+- `pre` moves the directory to the front even if a parent shell already listed
+  it further back; `post` adds it only if it is missing.
+- A directory that does not exist is skipped, so an uninstalled tool adds nothing.
+- `.profile` and `.bashrc` finish with `path_dedup`, which collapses repeats
+  inherited from the parent (pi, systemd, ssh) while keeping each directory's
+  first occurrence.
 
 ## Prompt themes
 

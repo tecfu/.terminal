@@ -207,6 +207,10 @@ for _f in profile-general.sh \
 done
 unset _f
 
+# Profile files above prepend to PATH; drop repeats inherited from the parent
+# shell and from .profile, which a login shell has already sourced once.
+type path_dedup >/dev/null 2>&1 && path_dedup
+
 # keep world-writable (ow) dirs from getting a loud background color in ls
 LS_COLORS="$LS_COLORS:ow=103;30;01"
 

@@ -34,14 +34,14 @@ if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
 fi
 
 # Add user's private bin to PATH
-export PATH="$HOME/.local/bin:$PATH"
+pathmunge "$HOME/.local/bin" pre
 
 # For Golang
-export PATH="$HOME/go/bin:$PATH"
+pathmunge "$HOME/go/bin" pre
 
 # For Rust package manager, Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # For Volta
 export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+pathmunge "$VOLTA_HOME/bin" pre

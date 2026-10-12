@@ -1,2 +1,2 @@
-export PATH=$PATH:/home/base/Applications
+pathmunge "$HOME/Applications" post
 export ANDROID_HOME=/home/base/Android

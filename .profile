@@ -63,3 +63,7 @@ fi
 # machine-specific config (untracked, never merged): ~/.profile.local
 [ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"
 
+# Collapse repeats left by the parent shell (pi, systemd, a nested bash that
+# already sourced these files). See the PATH helpers in profile-general.sh.
+type path_dedup >/dev/null 2>&1 && path_dedup
+
