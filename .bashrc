@@ -1,3 +1,6 @@
+# PATH safety, before the interactivity guard: see profile-path-safety.sh.
+[ -f "$HOME/.terminal/profile-path-safety.sh" ] && . "$HOME/.terminal/profile-path-safety.sh"
+
 # Enable the subsequent settings only in interactive sessions
 case $- in
   *i*) ;;

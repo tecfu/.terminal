@@ -1,5 +1,10 @@
 # Check ./profile-env-private.sh for $EDITOR variable
 
+# PATH safety first, before the interactivity guard below: a non-interactive login
+# shell still runs /etc/profile.d/volta.sh, and that is where the aliased Volta shim
+# dir came from. See the file for why the order matters.
+[ -f "$HOME/.terminal/profile-path-safety.sh" ] && . "$HOME/.terminal/profile-path-safety.sh"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;

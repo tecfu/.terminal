@@ -42,6 +42,8 @@ pathmunge "$HOME/go/bin" pre
 # For Rust package manager, Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# For Volta
+# For Volta. The prune + guard-unset that has to run even in non-interactive login
+# shells lives at the top of .profile/.bashrc (profile-path-safety.sh); this is the
+# canonical entry that file expects to survive.
 export VOLTA_HOME="$HOME/.volta"
 pathmunge "$VOLTA_HOME/bin" pre
