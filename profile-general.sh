@@ -118,3 +118,52 @@ path_dedup() {
     PATH="$out"
     export PATH
 }
+
+
+#################################
+#
+# Prompt-completion bell for pi
+#
+#################################
+# pi writes a BEL byte to stdout when a prompt finishes (see the extension in
+# ~/.pi/agent/extensions). What that byte *sounds* like is the terminal's job,
+# which is what makes it correct over ssh: the byte rides the pty and the local
+# terminal rings. alacritty 0.18 has no audible bell, so a window needs a
+# bell.command to turn the byte into sound.
+#
+# When pi runs locally it arms its own window at startup (it has ALACRITTY_SOCKET
+# and ALACRITTY_WINDOW_ID in its environment). It cannot do that when it runs
+# over ssh - the socket is local to this machine - so the local side arms the
+# window before connecting. That is what these two do; everything is per window,
+# nothing is written to any alacritty config file.
+PI_BELL_PLAYER="${PI_BELL_PLAYER:-paplay}"   # pw-play exits 1 on this box
+PI_BELL_SOUND="${PI_BELL_SOUND:-/usr/share/sounds/freedesktop/stereo/complete.oga}"
+
+# pi-bell-on — make THIS alacritty window ring for pi. Silent no-op anywhere
+# else (kitty, a bare vt, an ssh session that inherited none of the variables).
+# Leaves an existing bell.command alone unless PI_BELL_FORCE=1, so a deliberate
+# global setting is never overridden by accident.
+pi-bell-on() {
+    [ -n "${ALACRITTY_SOCKET:-}" ] && [ -n "${ALACRITTY_WINDOW_ID:-}" ] || return 0
+    command -v alacritty >/dev/null 2>&1 || return 0
+    if [ "${PI_BELL_FORCE:-0}" != "1" ] && command -v jq >/dev/null 2>&1; then
+        alacritty msg --socket "$ALACRITTY_SOCKET" get-config \
+            --window-id "$ALACRITTY_WINDOW_ID" 2>/dev/null |
+            jq -e '.bell.command == null' >/dev/null 2>&1 || return 0
+    fi
+    alacritty msg --socket "$ALACRITTY_SOCKET" config --window-id "$ALACRITTY_WINDOW_ID" \
+        "bell.command={program=\"$PI_BELL_PLAYER\",args=[\"$PI_BELL_SOUND\"]}" 2>/dev/null
+}
+
+# pi-bell-off — drop the runtime override on this window (all of them, not just
+# the bell: --reset clears every runtime change for the window).
+pi-bell-off() {
+    [ -n "${ALACRITTY_SOCKET:-}" ] && [ -n "${ALACRITTY_WINDOW_ID:-}" ] || return 0
+    command -v alacritty >/dev/null 2>&1 || return 0
+    alacritty msg --socket "$ALACRITTY_SOCKET" config --window-id "$ALACRITTY_WINDOW_ID" --reset 2>/dev/null
+}
+
+# pish — ssh, with this window armed first, for when the remote side runs pi:
+#   pish box          then run pi there
+#   pish box -t pi    or start it directly
+pish() { pi-bell-on; command ssh "$@"; }

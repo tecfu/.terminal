@@ -8,6 +8,17 @@
 
 #################################
 #
+# bell
+#
+#################################
+# bash's completion bell (ambiguous completion, unmatched keys) is the only
+# other thing in this terminal that routinely writes BEL - and the terminal's
+# bell is now turned into sound for pi's prompt-completion beep. Silence
+# readline's, so a pi window rings for pi rather than for a tab press.
+set bell-style none
+
+#################################
+#
 # vi mode related
 #
 #################################

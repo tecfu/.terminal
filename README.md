@@ -114,6 +114,42 @@ pathstrip ".asdf"                    # drop entries matching a substring
   inherited from the parent (pi, systemd, ssh) while keeping each directory's
   first occurrence.
 
+## Prompt-completion bell for pi
+
+pi writes a BEL byte to stdout when a prompt finishes (the extension in
+`~/.pi/agent/extensions`), and the *terminal* decides what that byte sounds like.
+That split is what makes it right over ssh: the byte rides the pty, so the local
+terminal rings even though pi is running on another machine.
+
+alacritty has no audible bell, so a window needs `bell.command` to turn the byte
+into sound. Nothing goes into any alacritty config file - the bell is set per
+window at runtime, through the socket alacritty itself exports:
+
+```sh
+pi-bell-on          # arm THIS alacritty window (silent no-op anywhere else)
+pi-bell-off         # drop the runtime override again
+pish box            # ssh, with this window armed first
+```
+
+- **pi running locally** arms its own window at startup and needs none of this.
+  It knows which window it is in from `ALACRITTY_SOCKET` / `ALACRITTY_WINDOW_ID`.
+- **pi over ssh** has no such variables - they describe the machine with the
+  terminal - so the local shell must arm before connecting. `pish` does that, or
+  call `pi-bell-on` yourself and then `ssh`; the arming lasts as long as the
+  window.
+- The override is per window: other windows of the same alacritty instance keep
+  their own config, and the change disappears when the window closes.
+- `pi-bell-on` does nothing if `bell.command` is already set, so a deliberate
+  global setting is never overridden by accident. `PI_BELL_FORCE=1 pi-bell-on`
+  overrides anyway.
+- Player and sound are variables: `PI_BELL_PLAYER` (default `paplay`; `pw-play`
+  exits 1 on this box) and `PI_BELL_SOUND` (default the freedesktop
+  `complete.oga`).
+
+`set bell-style none` in `.inputrc` silences readline's completion bell, so a pi
+window rings for pi rather than for a tab press. vim and other BEL emitters in
+the same window still ring - a bell belongs to a window, not to a program.
+
 ## Prompt themes
 
 `.bashrc` ships two prompt themes, selected with `PROMPT_THEME`. Put it in
